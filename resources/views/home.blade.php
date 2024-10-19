@@ -48,7 +48,7 @@
    </p>
   </div>
   <div class="footer">
-   <a href="{{ route('profil') }}">{{ Auth::user()->username }}</a>
+   <a href="">{{ Auth::user()->username }}</a>
    <img src="img/akun 1.png" alt="Profile Icon"  height="35"  width="35">
   </div>
 @endsection
