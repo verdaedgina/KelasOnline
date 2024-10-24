@@ -1,18 +1,27 @@
-@extends('layouts.app')
-@section('content')
-<style>
+<html>
+<head>
+    <title>Kelas Online</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             background-color: #ffffff;
         }
-        .back-arrow {
-            position: absolute;
-            top: 30px;
-            left: 20px;
+        .header {
+            background-color: #c98b8b;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
             font-size: 24px;
-            color: #D19A9A;
-            cursor: pointer;
+            font-weight: bold;
+            color: #000000;
         }
         .content {
             text-align: center;
@@ -20,69 +29,70 @@
         }
         .profile-icon {
             font-size: 100px;
-            color: #000000;
-            margin-top: 20px;
+            margin-bottom: 20px;
         }
         .info-box {
-            background-color: #D19A9A;
-            border-radius: 20px;
+            background-color: #d9a3a3;
             padding: 20px;
+            border-radius: 20px;
             display: inline-block;
             text-align: left;
-            margin-top: 20px;
-            width: 400px;
+            width: 300px;
         }
-        .info-item {
-            background-color: #FBCBCB;
+        .info-box div {
+            background-color: #f7c6c6;
+            padding: 10px;
             border-radius: 20px;
-            padding: 10px 20px;
-            margin: 10px 0;
-            font-size: 18px;
+            margin-bottom: 10px;
             font-weight: bold;
-            color: #7A4E4E;
-        }
-        .info-item.split {
-            display: flex;
-            justify-content: space-between;
-        }
-        .info-item.split .score {
-            background-color: #FBCBCB;
-            border-radius: 20px;
-            padding: 10px 20px;
-            color: #7A4E4E;
-            margin-left: 10px;
-            flex: 1;
-            text-align: center;
         }
         .upgrade-button {
-            background-color: #FBCBCB;
-            border: none;
-            border-radius: 20px;
+            background-color: #f7c6c6;
             padding: 10px 20px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #7A4E4E;
+            border-radius: 20px;
             margin-top: 20px;
+            display: inline-block;
+            font-weight: bold;
             cursor: pointer;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+        }
+        .arrow-left {
+            position: absolute;
+            top: 80px;
+            left: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #c98b8b;
         }
     </style>
 </head>
 <body>
-    <i class="fas fa-arrow-left back-arrow"></i>
+    <div class="header">
+        <div class="logo">
+            KELAS ONLINE
+        </div>
+    </div>
+    <div class="arrow-left">
+        <i class="fas fa-arrow-left"></i>
+    </div>
     <div class="content">
         <div class="profile-icon">
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="info-box">
-            <div class="info-item">Username</div>
-            <div class="info-item">Nama akun</div>
-            <div class="info-item">Tingkatan Level</div>
-            <div class="info-item score">score</div>
+            <div>Username</div>
+            <div>Nama akun</div>
+            <div>Tingkatan Level</div>
+            <div>score</div>
         </div>
-        <button class="upgrade-button">Tingkatkan Level? Klik di sini</button>
     </div>
-
-@extends('layouts.app')
+    <div class="footer">
+        <div class="upgrade-button">
+            Tingkatkan Level? Klik di sini
+        </div>
+    </div>
+</body>
+</html>
