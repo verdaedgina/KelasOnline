@@ -12,7 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profils', function (Blueprint $table) {
-            $table->id();
+            $table->id(); // Menambahkan kolom id sebagai primary key
+            $table->foreignId('user_id') // Mendefinisikan kolom user_id sebagai foreign key
+                  ->constrained('users') // Mengacu ke kolom idUser di tabel users
+                  ->onDelete('cascade'); // Menghapus profil jika user dihapus
+            $table->string('username');
+            $table->string('level');
+            $table->string('score');
             $table->timestamps();
         });
     }

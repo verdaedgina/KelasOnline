@@ -52,20 +52,92 @@
     }
 
 </style>
-    <section class="form-container">
-        <div class="form-box">
-            <div class="form-header">
-                <h2>Edit mapel</h2>
+<div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h4 class="card-title text-center mb-4">Tambah Data Tiket</h4>
+                        <form action="{{ route('tiket.store') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+
+                            <!--gambar -->
+                            <div class="form-group">
+                                <label>GAMBAR</label>
+                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
+                                @error('image')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!--kelas kereta -->
+                            <div class="form-group">
+                                <label>Kelas</label>
+                                <select class="form-control @error('kelas') is-invalid @enderror" name="kelas">
+                                    <option selected disabled>Pilih Salah Satu</option>
+                                    <option value="Ekonomi">Ekonomi</option>
+                                    <option value="Bisnis">Bisnis</option>
+                                    <option value="Eksekutif">Eksekutif</option>
+                                </select>   
+                                @error('kelas')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <!-- nama penumpang -->
+                            <div class="form-group">
+                                <label>Nama Penumpang</label>
+                                <input type="text" class="form-control @error('namapenumpang') is-invalid @enderror" name="namapenumpang" value="{{ old('namapenumpang') }}" placeholder="Masukkan nama anda">
+                                @error('namapenumpang')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Harga</label>
+                                <input type="text" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" placeholder="Masukkan harga">
+                                @error('harga')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                                <!-- tanggal berangkat -->
+                            <div class="form-group">
+                                <label>Tanggal Berangkat</label>
+                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" value="{{ old('tanggal') }}">
+                                @error('tanggal')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!-- stasiun -->
+                            <div class="form-group">
+                                <label>Stasiun Awal</label>
+                                <input type="text" class="form-control @error('asalstasiun') is-invalid @enderror" name="asalstasiun" value="{{ old('asalstasiun') }}" placeholder="Masukkan stasiun awal">
+                                @error('asalstasiun')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label>Stasiun Tujuan</label>
+                                <input type="text" class="form-control @error('tujuanstasiun') is-invalid @enderror" name="tujuanstasiun" value="{{ old('tujuanstasiun') }}" placeholder="Masukkan stasiun akhir">
+                                @error('tujuanstasiun')
+                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <!-- tombol -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-md">SIMPAN</button>
+                                <button type="reset" class="btn btn-warning btn-md">RESET</button>
+                                <a href="/tiket" class="btn btn-dark btn-md">KEMBALI</a>
+                            </div>
+
+                        </form> 
+                    </div>
+                </div>
             </div>
-            <form action="" method="post">
-                @csrf
-                @method('PUT')
-                <input type="text" name="nama_mapel" value="{{ $mapel->nama_mapel }}" placeholder="Edit nama mapel" required>
-                <input type="text" name="kelas" value="{{ $mapel->kelas }}" placeholder="Edit kelas" required>
-                <input type="text" name="link_artikel" value="{{ $mapel->link_artikel }}" placeholder="Edit link artikel" required>
-                <input type="text" name="link_video" value="{{ $mapel->link_video }}" placeholder="Edit link video" required>
-                <button type="submit">Update</button>
-            </form>
         </div>
-    </section>
+    </div>
+
+
+    
 @endsection

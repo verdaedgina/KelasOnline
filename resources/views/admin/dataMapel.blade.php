@@ -72,25 +72,7 @@
         }
   </style>
  </head>
- <body>
-  <div class="header">
-   <div>
-    <img alt="Kelas Online Logo" height="50" src="https://storage.googleapis.com/a1aa/image/HHeTSauBfeMdbJH4pxxQEScqV9yrAfA8u5lYmyCz9LI4eNwcC.jpg" width="50"/>
-   </div>
-   <nav>
-    <a href="#">
-     Data mapel
-    </a>
-    <a href="#">
-     Data siswa
-    </a>
-   </nav>
-  </div>
-  <div class="container">
-   <div class="back-arrow">
-    <i class="fas fa-arrow-left">
-    </i>
-   </div>
+    <a href="{{ route('admin.create') }}" class="btn btn-success mb-3">TAMBAH MAPEL</a>
    <div class="table-container">
     <table>
      <thead>
@@ -105,16 +87,17 @@
       </tr>
      </thead>
      <tbody>
+        @forelse ($mapels as $key => $mapel)
       <tr>
-       <td></td>
+       <td>{{ $key + 1 }}</td>
        <td>{{ $mapel-> namaMapel}}</td>
        <td>{{ $mapel-> id}}</td>
        <td>{{ $mapel-> idkelas}}</td>
        <td>{{ $mapel-> idlink}}</td>
        <td></td>
        <td class="text-center">
-            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('blog.destroy', $blog->id) }}" method="POST">
-                <a href="{{ route('blog.edit', $blog->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.destroy', $mapel->id) }}" method="POST">
+                <a href="{{ route('admin.edit', $mapel->id) }}" class="btn btn-sm btn-primary">EDIT</a>
                     @csrf
                     @method('DELETE')
                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
@@ -124,10 +107,6 @@
      </tbody>
     </table>
    </div>
-   <div style="text-align: right; margin-top: 20px;">
-    <button class="add-button">
-     Tambah
-    </button>
-   </div>
+
   </div>
 @endsection

@@ -28,5 +28,8 @@ Route::middleware(['auth'])->group(function () {
 //admin
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
   
-    Route::get('/admin', [HomeController::class, 'adminDashboard'])->name('admin.dataMapel');
+    Route::get('/mapel', [HomeController::class, 'adminDashboard'])->name('admin.dataMapel');
 });  
+Route::get('/akun', function () {
+    return view('admin.dataAkun');
+});
