@@ -16,6 +16,11 @@ Route::get('/produk', function () {
     return view('pelajar.produk');
 });
 
+Route::get('/level', function () {
+    return view('pelajar.level');
+});
+
+
 Route::get('/profil', function () {
     return view('pelajar.profil');
 });
