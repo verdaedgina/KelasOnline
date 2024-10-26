@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MapelController;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -26,15 +27,20 @@ Route::get('/profil', function () {
 });
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+Route::middleware(['auth', 'user-access:siswa'])->group(function () {
+  
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 //admin
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
   
-    Route::get('/mapel', [HomeController::class, 'adminDashboard'])->name('admin.dataMapel');
-});  
+    Route::get('/mapel', [HomeController::class, 'adminmapel'])->name('admin.dataMapel');
+}); 
+
 Route::get('/akun', function () {
     return view('admin.dataAkun');
 });
