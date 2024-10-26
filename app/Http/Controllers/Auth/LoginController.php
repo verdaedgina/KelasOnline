@@ -25,14 +25,15 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if (auth()->attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Redirect berdasarkan role
+        if (auth()->attempt(['email' => $input['email'], 'password' => $input['password']])) {
+            logger(auth()->user()->role);
             if (auth()->user()->role === 'admin') {
                 return redirect()->route('admin.dataMapel');
-            } else{
+            } else {
                 return redirect()->route('home');
             }
         }
+        
 
         return redirect()->route('login')->with('error', 'Email atau Password salah.');
     }

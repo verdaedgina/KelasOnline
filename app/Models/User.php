@@ -17,7 +17,7 @@ class User extends Authenticatable
         'username',
         'email',
         'password',
-        'role', // Keeping this as it represents the user's role
+        'role', // Menyimpan role sebagai string
     ];
 
     protected $hidden = [
@@ -35,15 +35,15 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the user's role in a readable format.
+     * Mengambil role pengguna dalam format yang dapat dibaca.
      *
      * @return Attribute
      */
     protected function role(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => ["siswa", "admin"][$value],
+            get: fn ($value) => $value, // Mengembalikan nilai asli, tidak perlu diubah
         );
     }
-    
 }
+
