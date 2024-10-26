@@ -27,19 +27,20 @@ Route::get('/profil', function () {
 });
 Auth::routes();
 
-
-
-
 Route::middleware(['auth', 'user-access:siswa'])->group(function () {
   
     Route::get('/home', [HomeController::class, 'index'])->name('home');
 });
 
 //admin
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+// Route::middleware(['auth', 'user-access:admin'])->group(function () {
   
-    Route::get('/mapel', [HomeController::class, 'adminmapel'])->name('admin.dataMapel');
-}); 
+//     Route::get('/mapel', [HomeController::class, 'mapel'])->name('admin.dataMapel');
+// }); 
+
+Route::get('/mapel', function () {
+    return view('admin.dataMapel');
+});
 
 Route::get('/akun', function () {
     return view('admin.dataAkun');

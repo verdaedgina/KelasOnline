@@ -39,11 +39,11 @@ class User extends Authenticatable
      *
      * @return Attribute
      */
-    protected function role(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => $value, // Mengembalikan nilai asli, tidak perlu diubah
-        );
-    }
+    // protected function role(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) =>  ["admin","siswa"][$value], // Mengembalikan nilai asli, tidak perlu diubah
+    //     );
+    // }
 }
 

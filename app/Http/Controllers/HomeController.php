@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         return view('home');
     }
-    public function adminmapel()
+    public function mapel()
     {
         return view('admin.dataMapel');
     }

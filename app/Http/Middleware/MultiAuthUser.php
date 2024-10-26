@@ -8,19 +8,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MultiAuthUser
 {
-    public function handle(Request $request, Closure $next, $role): Response
-{
-    // Cek apakah pengguna sudah terautentikasi
-    if (auth()->check()) {
-        logger('Current User Role: ' . auth()->user()->role); // Log untuk melihat role
-        // Cek apakah role pengguna cocok
-        if (auth()->user()->role === $role) {
+    public function handle(Request $request, Closure $next, $userType): Response
+    {
+        if(auth()->user()->role == $userType){
             return $next($request);
         }
+        return response()->json(['y']);
     }
-
-    // Jika tidak, kembalikan respons dengan pesan
-    return response()->json(['message' => 'Anda tidak memiliki izin untuk mengakses halaman ini.'], 403);
-}
-
 }
