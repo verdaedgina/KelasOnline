@@ -19,23 +19,26 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+{
+    $this->validate($request, [
+        'email' => 'required|email',
+        'password' => 'required',
+    ]);
 
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            if (auth()->user()->role == 'siswa') {
-                return redirect()->route('home');
-            }else{
-                return redirect()->route('admin.dataMapel');
-            }
-        }else{
-            return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+    if (auth()->attempt([
+        'email' => $request->input('email'),
+        'password' => $request->input('password')
+    ])) {
+        if (auth()->user()->role == 'siswa') {
+            return redirect()->route('home');
+        } else {
+            return redirect()->route('admin.dataMapel');
         }
+    } else {
+        return redirect()->route('login')
+            ->with('error', 'Email-Address and Password are incorrect.');
     }
+}
+
 
 }

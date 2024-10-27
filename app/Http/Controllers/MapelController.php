@@ -1,32 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Models\mapel;
+use App\Models\Mapel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class MapelController extends Controller
 {
-    public function index()
+    public function mapel()
     {
-        $mapels = mapel::latest()->paginate(10);
+        $mapels = Mapel::latest()->paginate(10);
         return view('admin.dataMapel', compact('mapels'));
     }
 
     public function show($id)
     {
-        // Ambil data mapel berdasarkan ID
-        $mapel = mapel::find($id);
+        $mapel = Mapel::find($id);
         
-        // Pastikan mapel ditemukan
         if (!$mapel) {
             return redirect()->route('admin.dataMapel')->with('error', 'Materi tidak ditemukan.');
         }
     
-        // Kirim data mapel ke tampilan
         return view('pelajar.produk', compact('mapel'));
     }
+
     public function create()
     {
         return view('admin.create');
@@ -34,18 +31,17 @@ class MapelController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'idkelas' => 'required|string|max:255',
             'idlink' => 'required|numeric',
-            'mapel' => 'required|date',
+            'mapel' => 'required|string|max:255',
         ]);
 
         $image = $request->file('image');
-        $image->storeAs('public/tikets', $image->hashName());
+        $image->storeAs('public/mapels', $image->hashName());
     
-        $tiket = Tiket::create([
+        $mapel = Mapel::create([
             'image' => $image->hashName(),
             'idkelas' => $request->idkelas,
             'idlink' => $request->idlink,
@@ -59,24 +55,16 @@ class MapelController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Validasi input
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'idkelas' => 'required|string|max:255',
             'idlink' => 'required|numeric',
-            'mapel' => 'required|date',
+            'mapel' => 'required|string|max:255',
         ]);
 
-        $mapel = mapel::findOrFail($id);
+        $mapel = Mapel::findOrFail($id);
 
-        if (!$request->hasFile('image')) {
-            $tiket->update([
-                'image' => $image->hashName(),
-                'idkelas' => $request->idkelas,
-                'idlink' => $request->idlink,
-                'mapel' => $request->mapel,
-            ]);
-        } else {
+        if ($request->hasFile('image')) {
             // Hapus gambar lama
             Storage::disk('local')->delete('public/mapels/' . $mapel->image);
 
@@ -84,24 +72,24 @@ class MapelController extends Controller
             $image = $request->file('image');
             $image->storeAs('public/mapels', $image->hashName());
 
-            $tiket->update([
-                'image' => $image->hashName(),
-                'idkelas' => $request->idkelas,
-                'idlink' => $request->idlink,
-                'mapel' => $request->mapel,
-            ]);
+            $mapel->image = $image->hashName();
         }
 
-        return redirect()->route('admin.index')->with(['success' => 'Data Berhasil Diupdate!']);
+        $mapel->idkelas = $request->idkelas;
+        $mapel->idlink = $request->idlink;
+        $mapel->mapel = $request->mapel;
+        $mapel->save();
+
+        return redirect()->route('admin.dataMapel')->with(['success' => 'Data Berhasil Diupdate!']);
     }
 
     public function destroy($id)
     {
-        $tiket = Tiket::findOrFail($id);
-        Storage::disk('local')->delete('public/tikets/' . $tiket->image);
-        $tiketDeleted = $tiket->delete();
+        $mapel = Mapel::findOrFail($id);
+        Storage::disk('local')->delete('public/mapels/' . $mapel->image);
+        $mapelDeleted = $mapel->delete();
       
-        return $tiketDeleted 
+        return $mapelDeleted 
         ? redirect()->route('admin.dataMapel')->with(['success' => 'Data Berhasil dihapus!']) 
         : redirect()->route('admin.dataMapel')->with(['error' => 'Data Gagal dihapus!']);
     }

@@ -33,14 +33,10 @@ Route::middleware(['auth', 'user-access:siswa'])->group(function () {
 });
 
 //admin
-// Route::middleware(['auth', 'user-access:admin'])->group(function () {
-  
-//     Route::get('/mapel', [HomeController::class, 'mapel'])->name('admin.dataMapel');
-// }); 
-
-Route::get('/mapel', function () {
-    return view('admin.dataMapel');
-});
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/mapel', [MapelController::class, 'mapel'])->name('admin.dataMapel');
+    Route::get('/mapel/create', [MapelController::class, 'create'])->name('admin.create');
+}); 
 
 Route::get('/akun', function () {
     return view('admin.dataAkun');

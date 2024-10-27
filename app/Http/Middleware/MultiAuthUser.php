@@ -10,9 +10,11 @@ class MultiAuthUser
 {
     public function handle(Request $request, Closure $next, $userType): Response
     {
-        if(auth()->user()->role == $userType){
+        if (auth()->check() && auth()->user()->role == $userType) {
             return $next($request);
         }
-        return response()->json(['y']);
+
+        // Pengguna tidak memiliki akses, arahkan ke halaman tertentu atau tampilkan pesan error
+        return redirect('/unauthorized')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
     }
 }
