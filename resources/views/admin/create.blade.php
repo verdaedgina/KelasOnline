@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <style>
     body {
@@ -6,9 +7,9 @@
         margin: 0;
         padding: 0;
         background-color: #fff;
-        }
+    }
 
-        form-container {
+    .form-container {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,7 +30,7 @@
         gap: 20px;
     }
 
-    form input {
+    form input, form select {
         padding: 15px;
         border: none;
         border-radius: 10px;
@@ -50,21 +51,38 @@
     form button:hover {
         background-color: #8f4e4a;
     }
-
-
 </style>
-    <section class="form-container">
-        <div class="form-box">
-            <div class="form-header">
-                <h2>Tambah mapel</h2>
-            </div>
-            <form action="" method="post">
-                <input type="text" placeholder="Tambah mapel" required>
-                <input type="text" placeholder="Masukkan kelas" required>
-                <input type="text" placeholder="Masukkan link artikel" required>
-                <input type="text" placeholder="Masukkan link video" required>
-                <button type="submit">Simpan</button>
-            </form>
+
+<section class="form-container">
+    <div class="form-box">
+        <div class="form-header">
+            <h2>Tambah Mapel</h2>
         </div>
-    </section>
+        <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="image" required>
+
+            <!-- Dropdown Kelas -->
+             <select name="kelas" required>
+                <option value="" disabled selected>Pilih Kelas</option>
+                    @foreach($kelasList as $kelas)
+                         <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
+                    @endforeach
+                </select>   
+
+            <!-- Dropdown Mapel -->
+            <select name="mapel" required>
+                <option value="" disabled selected>Pilih Mapel</option>
+                @foreach($mapels as $mapel)
+                    <option value="{{ $mapel->namaMapel }}">{{ $mapel->namaMapel }}</option>
+                @endforeach
+            </select>
+
+
+            <input type="url" name="artikel" placeholder="Masukkan link artikel" required>
+            <input type="url" name="video" placeholder="Masukkan link video" required>
+            <button type="submit">Simpan</button>
+        </form>
+    </div>
+</section>
 @endsection

@@ -79,8 +79,8 @@
             <thead>
                 <tr>
                     <th>No</th>
+                    <th>Gambar</th>
                     <th>Nama mapel</th>
-                    <th>Kode mapel</th>
                     <th>Kelas</th>
                     <th>Link video</th>
                     <th>Link artikel</th>
@@ -88,29 +88,30 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($mapels as $key => $mapel)
-                <tr>
-                    <td>{{ $key + 1 }}</td>
-                    <td>{{ $mapel->namaMapel }}</td>
-                    <td>{{ $mapel->id }}</td>
-                    <td>{{ $mapel->idkelas }}</td>
-                    <td>{{ $mapel->idlink }}</td>
-                    <td></td>
-                    <td class="text-center">
-                        <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.destroy', $mapel->id) }}" method="POST">
-                            <a href="{{ route('admin.edit', $mapel->id) }}" class="btn btn-sm btn-primary">EDIT</a>
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
-                        </form>
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="7" class="text-center">Tidak ada data mapel tersedia</td>
-                </tr>
-                @endforelse
-            </tbody>
+    @forelse ($materi as $key => $materi)
+    <tr>
+        <td>{{ $loop->iteration }}</td> <!-- Menampilkan nomor urut -->
+        <td><img src="{{ asset('storage/materis/' . $materi->image) }}" alt="Gambar Materi" style="width: 100px; height: auto;"></td>
+        <td>{{ $materi->mapel }}</td>
+        <td>{{ $materi->kelas }}</td>
+        <td><a href="{{ $materi->artikel }}" target="_blank">Artikel</a></td>
+        <td><a href="{{ $materi->video }}" target="_blank">Video</a></td>
+        <td class="text-center">
+            <form onsubmit="return confirm('Apakah Anda Yakin ?');" action="{{ route('admin.destroy', $materi->id) }}" method="POST">
+                <a href="{{ route('admin.edit', $materi->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                @csrf
+                @method('DELETE')
+                <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
+            </form>
+        </td>
+    </tr>
+    @empty
+    <tr>
+        <td colspan="6" class="text-center">Tidak ada data mapel tersedia</td>
+    </tr>
+    @endforelse
+</tbody>
+
         </table>
     </div>
 </div>

@@ -1,3 +1,6 @@
+@extends('layouts.app')  <!-- Assuming you have a layout file named app.blade.php -->
+
+@section('content')
 <html>
 <head>
     <title>Kelas Online</title>
@@ -83,10 +86,10 @@
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="info-box">
-            <div>Username</div>
-            <div>Nama akun</div>
-            <div>Tingkatan Level</div>
-            <div>score</div>
+            <div>{{ $profil->username }}</div>
+            <div>{{ $profil->email }}</div> <!-- Assuming you have a 'name' field in your 'profil' table -->
+            <div>Tingkatan Level: {{ $profil->level }}</div>
+            <div>Score: {{ $profil->score }}</div>
         </div>
     </div>
     <div class="footer">
@@ -96,3 +99,4 @@
     </div>
 </body>
 </html>
+@endsection

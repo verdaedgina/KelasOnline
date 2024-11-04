@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('mapels', function (Blueprint $table) {
-            $table->string('image');
             $table->id(); // Kolom idMapel sebagai primary key
             $table->foreignId('id_kelas')->constrained('kelas')->onDelete('cascade');
             $table->string('namaMapel'); // Nama pelajaran

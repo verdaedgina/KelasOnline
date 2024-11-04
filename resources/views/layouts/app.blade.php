@@ -58,7 +58,7 @@
 
                     @if (auth()->check() && auth()->user()->role == 'admin')
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ '/mapel' }}">{{ __('Data Mapel') }}</a>
+                            <a class="nav-link" href="{{ '/admin' }}">{{ __('Data Mapel') }}</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ '/akun' }}">{{ __('Data Akun') }}</a>

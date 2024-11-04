@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
 <style>
     body {
@@ -29,7 +30,7 @@
         gap: 20px;
     }
 
-    form input {
+    form input, form select {
         padding: 15px;
         border: none;
         border-radius: 10px;
@@ -50,94 +51,44 @@
     form button:hover {
         background-color: #8f4e4a;
     }
-
 </style>
-<div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card shadow-lg">
-                    <div class="card-body">
-                        <h4 class="card-title text-center mb-4">Tambah Data Tiket</h4>
-                        <form action="{{ route('tiket.store') }}" method="POST" enctype="multipart/form-data">
-                            @csrf
 
-                            <!--gambar -->
-                            <div class="form-group">
-                                <label>GAMBAR</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image">
-                                @error('image')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!--kelas kereta -->
-                            <div class="form-group">
-                                <label>Kelas</label>
-                                <select class="form-control @error('kelas') is-invalid @enderror" name="kelas">
-                                    <option selected disabled>Pilih Salah Satu</option>
-                                    <option value="Ekonomi">Ekonomi</option>
-                                    <option value="Bisnis">Bisnis</option>
-                                    <option value="Eksekutif">Eksekutif</option>
-                                </select>   
-                                @error('kelas')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <!-- nama penumpang -->
-                            <div class="form-group">
-                                <label>Nama Penumpang</label>
-                                <input type="text" class="form-control @error('namapenumpang') is-invalid @enderror" name="namapenumpang" value="{{ old('namapenumpang') }}" placeholder="Masukkan nama anda">
-                                @error('namapenumpang')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Harga</label>
-                                <input type="text" class="form-control @error('harga') is-invalid @enderror" name="harga" value="{{ old('harga') }}" placeholder="Masukkan harga">
-                                @error('harga')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-                                <!-- tanggal berangkat -->
-                            <div class="form-group">
-                                <label>Tanggal Berangkat</label>
-                                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" name="tanggal" value="{{ old('tanggal') }}">
-                                @error('tanggal')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <!-- stasiun -->
-                            <div class="form-group">
-                                <label>Stasiun Awal</label>
-                                <input type="text" class="form-control @error('asalstasiun') is-invalid @enderror" name="asalstasiun" value="{{ old('asalstasiun') }}" placeholder="Masukkan stasiun awal">
-                                @error('asalstasiun')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-
-                            <div class="form-group">
-                                <label>Stasiun Tujuan</label>
-                                <input type="text" class="form-control @error('tujuanstasiun') is-invalid @enderror" name="tujuanstasiun" value="{{ old('tujuanstasiun') }}" placeholder="Masukkan stasiun akhir">
-                                @error('tujuanstasiun')
-                                    <div class="alert alert-danger mt-2">{{ $message }}</div>
-                                @enderror
-                            </div>
-                            <!-- tombol -->
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-md">SIMPAN</button>
-                                <button type="reset" class="btn btn-warning btn-md">RESET</button>
-                                <a href="/tiket" class="btn btn-dark btn-md">KEMBALI</a>
-                            </div>
-
-                        </form> 
-                    </div>
-                </div>
-            </div>
+<section class="form-container">
+    <div class="form-box">
+        <div class="form-header">
+            <h2>Edit Mapel</h2>
         </div>
+        <form action="{{ route('admin.update', $materi->id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT') <!-- Tambahkan method PUT untuk update -->
+
+            <input type="file" name="image" accept="image/*"> <!-- Tidak lagi required agar tidak perlu upload gambar lagi -->
+            <input type="hidden" name="old_image" value="{{ $materi->image }}"> <!-- Simpan nama file gambar lama jika diperlukan -->
+
+            <!-- Dropdown Kelas -->
+            <select name="kelas" required>
+                <option value="" disabled>Pilih Kelas</option>
+                @foreach($kelasList as $kelas)
+                    <option value="{{ $kelas->nama_kelas }}" {{ $kelas->nama_kelas == $materi->kelas ? 'selected' : '' }}>
+                        {{ $kelas->nama_kelas }}
+                    </option>
+                @endforeach
+            </select>   
+
+            <!-- Dropdown Mapel -->
+            <select name="mapel" required>
+                <option value="" disabled>Pilih Mapel</option>
+                @foreach($mapels as $mapel)
+                    <option value="{{ $mapel->namaMapel }}" {{ $mapel->namaMapel == $materi->mapel ? 'selected' : '' }}>
+                        {{ $mapel->namaMapel }}
+                    </option>
+                @endforeach
+            </select>
+
+            <input type="url" name="artikel" placeholder="Masukkan link artikel" value="{{ $materi->artikel }}" required>
+            <input type="url" name="video" placeholder="Masukkan link video" value="{{ $materi->video }}" required>
+            <button type="submit">Simpan Perubahan</button>
+        </form>
     </div>
-
-
-    
+</section>
 @endsection
