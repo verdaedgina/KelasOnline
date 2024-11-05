@@ -4,13 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-<<<<<<< Updated upstream
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
-=======
-use Illuminate\Http\Request;
-
->>>>>>> Stashed changes
 
 class LoginController extends Controller
 {
@@ -24,50 +19,26 @@ class LoginController extends Controller
     }
 
     public function login(Request $request)
-{
-    $this->validate($request, [
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (auth()->attempt([
-        'email' => $request->input('email'),
-        'password' => $request->input('password')
-    ])) {
-        if (auth()->user()->role == 'siswa') {
-            return redirect()->route('home');
-        } else {
-            return redirect()->route('admin.dataMapel');
-        }
-    } else {
-        return redirect()->route('login')
-            ->with('error', 'Email-Address and Password are incorrect.');
-    }
-     public function login(Request $request)
-    {   
-        $input = $request->all();
-     
+    {
+        // Validate the request
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-     
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
+
+        // Attempt to log the user in
+        if (auth()->attempt($request->only('email', 'password'))) {
+            // Check user role and redirect accordingly
             if (auth()->user()->role == 'admin') {
                 return redirect()->route('admin.dataMapel');
-            }else if (auth()->user()->type == 'siswa') {
-                return redirect()->route('siswa.home');
-            }else{
-                return redirect()->route('dashboard');
+            } else if (auth()->user()->role == 'siswa') {
+                return redirect()->route('home');
+            } else {
+                return redirect()->route('dashboard'); // Handle other roles if necessary
             }
-        }else{
+        } else {
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+                ->with('error', 'Email-Address and Password are incorrect.');
         }
-          
     }
-}
-
-
 }

@@ -1,11 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-<<<<<<< Updated upstream
 use App\Http\Controllers\MateriController;
-=======
-use App\Http\Controllers\MapelController;
->>>>>>> Stashed changes
 use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
@@ -31,10 +27,10 @@ Route::get('/profil', function () {
 
 Auth::routes();
 
-<<<<<<< Updated upstream
 // Rute untuk siswa
 Route::middleware(['auth', 'user-access:siswa'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/produk', [MateriController::class, 'show'])->name('pelajar.produk');
     Route::get('/produk', [MateriController::class, 'produk'])->name('pelajar.produk');
 });
 
@@ -48,14 +44,3 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 Route::get('/akun', function () {
     return view('admin.dataAkun');
 });
-=======
-Route::middleware(['auth'])->group(function () {
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-});
-
-//admin
-Route::middleware(['auth', ''])->group(function () {
-    Route::get('/mapel', [HomeController::class, 'mapel'])->name('admin.dataMapel');
-}); 
->>>>>>> Stashed changes
