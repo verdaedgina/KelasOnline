@@ -30,7 +30,7 @@ Auth::routes();
 // Rute untuk siswa
 Route::middleware(['auth', 'user-access:siswa'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/produk', [MateriController::class, 'show'])->name('pelajar.produk');
+    Route::get('/produk', [MateriController::class, 'produk'])->name('pelajar.produk');
 });
 
 //admin

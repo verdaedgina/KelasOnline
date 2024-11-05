@@ -15,6 +15,6 @@ class MultiAuthUser
         }
 
         // Pengguna tidak memiliki akses, arahkan ke halaman tertentu atau tampilkan pesan error
-        return redirect('/unauthorized')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
+        return redirect('/admin')->with('error', 'Anda tidak memiliki akses ke halaman ini.');
     }
 }

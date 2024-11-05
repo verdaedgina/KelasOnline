@@ -68,12 +68,13 @@
 </head>
 <body>
     <div class="content">
-        @foreach ($materiList as $materi)
+        @foreach ($materi as $materi)
         <div class="card">
-            <img alt="{{ $materi->nama }}" src="{{ asset('storage/images/' . $materi->image) }}" />
+            <img src="{{ Storage::url('public/materis/') . $materi->image }}">
             <h3>{{ $materi->mapel }}</h3>
+            <h6>{{ $materi->kelas }}</h6>
             <!-- Trigger Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" data-materi-id="{{ $materi->id }}">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}">
                 Pilih
             </button>
         </div>
@@ -81,51 +82,40 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="kelasModal" tabindex="-1" role="dialog" aria-labelledby="kelasModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade" id="kelasModal" tabindex="-1" aria-labelledby="kelasModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="kelasModalLabel">Pilih Kelas</h5>
+                    <h5 class="modal-title" id="kelasModalLabel">Pilih Tipe Materi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span>&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="kelasForm" action="" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <label for="kelasSelect">Pilih Kelas:</label>
-                            <select class="form-control" id="kelasSelect" name="kelas">
-                                <option value="kelas_1">Kelas 1</option>
-                                <option value="kelas_2">Kelas 2</option>
-                                <option value="kelas_3">Kelas 3</option>
-                                <!-- Add more options as needed -->
-                            </select>
-                        </div>
-                        <input type="hidden" id="materiId" name="materi_id" value="">
-                        <button type="submit" class="btn btn-primary">Kirim</button>
-                    </form>
+                    <p>Pilih jenis materi yang ingin Anda akses:</p>
+                    <div id="materiLinks">
+                        <a href="#" id="videoLink" target="_blank" class="btn btn-info" style="display: none;">Video</a>
+                        <a href="#" id="artikelLink" target="_blank" class="btn btn-warning" style="display: none;">Artikel</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <script>
-        $('#kelasModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var materiId = button.data('materi-id'); // Extract info from data-* attributes
-            var modal = $(this);
-            modal.find('#materiId').val(materiId); // Set materi ID to hidden input in the form
-        });
-
-        // Handle form submission
-        $('#kelasForm').on('submit', function(event) {
-            event.preventDefault(); // Prevent default form submission
-            var actionUrl = "/your-route/" + $('#materiId').val(); // Define your route
-            $(this).attr('action', actionUrl); // Set action for the form
-            this.submit(); // Submit the form
-        });
-    </script>
 </body>
-</html>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // When the modal is shown, get the video and article links from the button that triggered it
+    $('#kelasModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget); // Button that triggered the modal
+        const videoUrl = button.data('video'); // Extract video link
+        const artikelUrl = button.data('artikel'); // Extract article link
+
+        // Set the href attributes for the links
+        $('#videoLink').attr('href', videoUrl).show(); // Show and set video link
+        $('#artikelLink').attr('href', artikelUrl).show(); // Show and set article link
+    });
+</script>
 @endsection
