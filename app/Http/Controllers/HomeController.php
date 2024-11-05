@@ -12,8 +12,16 @@ class HomeController extends Controller
     {
         return view('home');
     }
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
     public function mapel()
     {
         return view('admin.dataMapel');
     }
+<<<<<<< Updated upstream
+=======
+    
+>>>>>>> Stashed changes
 }

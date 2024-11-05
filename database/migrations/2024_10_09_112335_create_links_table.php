@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('linkss', function (Blueprint $table) {
+        Schema::create('links', function (Blueprint $table) {
             $table->id(); // Ensure this is a string in quotes
             $table->foreignId('id_mapel')->constrained('mapels')->onDelete('cascade');
             $table->string('artikel');

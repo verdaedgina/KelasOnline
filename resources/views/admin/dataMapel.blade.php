@@ -104,6 +104,7 @@
                 <button type="submit" class="btn btn-sm btn-danger">HAPUS</button>
             </form>
         </td>
+<<<<<<< Updated upstream
     </tr>
     @empty
     <tr>
@@ -111,6 +112,21 @@
     </tr>
     @endforelse
 </tbody>
+=======
+      </tr>
+        @empty
+            <tr>
+                <td colspan="6" class="text-center">
+                    <div class="alert alert-warning">
+                        Data Tiket belum Tersedia.
+                    </div>
+                </td>
+            </tr>
+        @endforelse
+     </tbody>
+    </table>
+   </div>
+>>>>>>> Stashed changes
 
         </table>
     </div>
