@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('profils', function (Blueprint $table) {
             $table->id(); // Menambahkan kolom id sebagai primary key
             $table->foreignId('user_id') // Mendefinisikan kolom user_id sebagai foreign key
-                  ->constrained('users') // Mengacu ke kolom idUser di tabel users
+                  ->constrained('users') // Mengacu ke kolom id di tabel users
                   ->onDelete('cascade'); // Menghapus profil jika user dihapus
-            $table->string('username');
-            $table->string('level');
-            $table->string('score');
-            $table->timestamps();
+            $table->string('username'); // Kolom untuk username
+            $table->string('level'); // Kolom untuk level
+            $table->integer('score')->default(0); // Kolom untuk score dengan default 0
+            $table->timestamps(); // Menambahkan kolom created_at dan updated_at
         });
     }
 

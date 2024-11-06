@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProfilController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -21,9 +22,9 @@ Route::get('/level', function () {
     return view('pelajar.level');
 });
 
-Route::get('/profil', function () {
-    return view('pelajar.profil');
-});
+Route::post('/profil', [ProfilController::class, 'readMaterial'])->middleware('auth');
+
+
 
 Auth::routes();
 
