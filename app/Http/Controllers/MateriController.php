@@ -47,6 +47,7 @@ class MateriController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kelas' => 'required',
             'mapel' => 'required',
+            'materi' => 'required',
             'video' => 'required|url',
             'artikel' => 'required|url',
         ]);
@@ -60,6 +61,7 @@ class MateriController extends Controller
             'image' => $image->hashName(),
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
+            'materi' => $request->materi,
             'video' => $request->video,
             'artikel' => $request->artikel,
         ]);
@@ -103,6 +105,7 @@ class MateriController extends Controller
         'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         'kelas' => 'required',
         'mapel' => 'required',
+        'materi' => 'required',
         'video' => 'required|url',
         'artikel' => 'required|url',
     ]);
@@ -114,12 +117,13 @@ class MateriController extends Controller
             'image' => $image->hashName(),
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
+            'materi' => $request->materi,
             'video' => $request->video,
             'artikel' => $request->artikel,
         ]);
     } else {
         // Hapus gambar lama
-        Storage::disk('local')->delete('public/tikets/' . $materi->image);
+        Storage::disk('local')->delete('public/materis/' . $materi->image);
 
         // Upload gambar baru
         $image = $request->file('image');
@@ -129,6 +133,7 @@ class MateriController extends Controller
             'image' => $image->hashName(),
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
+            'materi' => $request->materi,
             'video' => $request->video,
             'artikel' => $request->artikel,
         ]);
@@ -148,7 +153,7 @@ class MateriController extends Controller
         Storage::disk('local')->delete('public/materis/' . $materi->image);
         $materiDeleted = $materi->delete();
       
-        return $tiketDeleted 
+        return $materiDeleted 
             ? redirect()->route('admin.data')->with(['success' => 'Data Berhasil Dihapus!']) 
             : redirect()->route('admin.data')->with(['error' => 'Data Gagal Dihapus!']);
     }

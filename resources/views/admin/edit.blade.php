@@ -85,6 +85,7 @@
                 @endforeach
             </select>
 
+            <input type="text" name="materi" placeholder="Masukkan materi" value="{{ $materi->materi }}" required>
             <input type="url" name="artikel" placeholder="Masukkan link artikel" value="{{ $materi->artikel }}" required>
             <input type="url" name="video" placeholder="Masukkan link video" value="{{ $materi->video }}" required>
             <button type="submit">Simpan Perubahan</button>

@@ -31,9 +31,9 @@
             width: 100%;
             border-radius: 10px 10px 0 0;
         }
-        .card h3 {
-            margin: 10px 0;
-            font-size: 18px;
+        .card h4 {
+            margin: 20px;
+            font-size: 30px;
         }
         .card button {
             background-color: #a97b7b;
@@ -71,7 +71,8 @@
         @foreach ($materi as $materi)
         <div class="card">
             <img src="{{ Storage::url('public/materis/') . $materi->image }}">
-            <h3>{{ $materi->mapel }}</h3>
+            <h4>{{ $materi->mapel }}</h4>
+            <h6>{{ $materi->materi }}</h6>
             <h6>{{ $materi->kelas }}</h6>
             <!-- Trigger Modal -->
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}">
@@ -117,5 +118,27 @@
         $('#videoLink').attr('href', videoUrl).show(); // Show and set video link
         $('#artikelLink').attr('href', artikelUrl).show(); // Show and set article link
     });
+
+    $.ajax({
+    url: "{{ route('pelajar.profil') }}",
+    type: "POST",
+    data: {
+        _token: "{{ csrf_token() }}",
+        increment: 1 // Nilai untuk menambah skor
+    },
+    success: function(response) {
+        if (response.success) {
+            window.open(link, '_blank');
+        } else {
+            alert(response.message);
+        }
+    },
+    error: function() {
+        alert('Gagal memperbarui skor. Coba lagi.');
+    }
+});
+
 </script>
+
+
 @endsection

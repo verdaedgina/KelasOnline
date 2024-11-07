@@ -78,9 +78,10 @@
                 @endforeach
             </select>
 
-
+            <input type="text" name="materi" placeholder="Masukkan materi" required>
             <input type="url" name="artikel" placeholder="Masukkan link artikel" required>
             <input type="url" name="video" placeholder="Masukkan link video" required>
+
             <button type="submit">Simpan</button>
         </form>
     </div>

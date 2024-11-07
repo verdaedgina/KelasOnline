@@ -1,5 +1,3 @@
-@extends('layouts.app')
-@section('content')
 <html>
  <head>
   <title>
@@ -79,7 +77,7 @@
  </head>
  <body>
   <div class="content">
-   <h2>
+   <h2 href="/profil">
     Tingkatan Level
    </h2>
    <div class="pyramid">
@@ -102,4 +100,3 @@
   </div>
  </body>
 </html>
-@endsection

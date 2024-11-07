@@ -48,11 +48,7 @@
 </div>
 
 <div class="footer">
-<form action="/profil" method="POST">
-    @csrf
-    <button type="submit">Update Score</button>
-</form>
-
+    <a href="/profil">{{ Auth::user()->username }}</a>
     <img src="img/akun 1.png" alt="Profile Icon" height="35" width="35">
 </div>
 

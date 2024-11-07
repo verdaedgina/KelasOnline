@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('kelas');
             $table->string('mapel');
+            $table->string('mareri');
             $table->string('video');
             $table->string('artikel');
             $table->timestamps();

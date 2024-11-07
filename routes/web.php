@@ -23,6 +23,8 @@ Route::get('/level', function () {
 });
 
 Route::post('/profil', [ProfilController::class, 'readMaterial'])->middleware('auth');
+Route::get('/profil', [ProfilController::class, 'showProfile'])->name('pelajar.profil');
+
 
 
 

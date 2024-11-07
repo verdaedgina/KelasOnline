@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class profil extends Model
+class Profil extends Model
 {
     use HasFactory;
     
@@ -14,7 +14,6 @@ class profil extends Model
         'username',
         'level',
         'score',
-        'user_id', // Ensure user_id is fillable if needed
     ];
 
     public function updateScoreAndLevel($increment)
@@ -38,4 +37,5 @@ class profil extends Model
         // Save the changes to the database
         $this->save();
     }
+
 }

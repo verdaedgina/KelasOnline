@@ -61,6 +61,8 @@
         border-radius: 10px;
         cursor: pointer;
         font-size: 16px;
+        margin-bottom: 20px;
+        display: inline-block;
     }
     .back-arrow {
         position: absolute;
@@ -74,7 +76,7 @@
 </style>
 
 <div class="container">
-    <a href="{{ route('admin.create') }}" class="btn btn-success mb-3">TAMBAH MAPEL</a>
+    <a href="{{ route('admin.create') }}" class="add-button">TAMBAH MAPEL</a>
     <div class="table-container">
         <table>
             <thead>
@@ -83,6 +85,7 @@
                     <th>Gambar</th>
                     <th>Nama mapel</th>
                     <th>Kelas</th>
+                    <th>materi</th>
                     <th>Link video</th>
                     <th>Link artikel</th>
                     <th>Actions</th>
@@ -95,6 +98,7 @@
                     <td><img src="{{ asset('storage/materis/' . $materi->image) }}" alt="Gambar Materi" style="width: 100px; height: auto;"></td>
                     <td>{{ $materi->mapel }}</td>
                     <td>{{ $materi->kelas }}</td>
+                    <td>{{ $materi->materi }}</td>
                     <td><a href="{{ $materi->artikel }}" target="_blank">Artikel</a></td>
                     <td><a href="{{ $materi->video }}" target="_blank">Video</a></td>
                     <td class="text-center">
@@ -108,7 +112,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="7" class="text-center">
+                    <td colspan="8" class="text-center">
                         <div class="alert alert-warning">
                             Tidak ada data mapel tersedia.
                         </div>

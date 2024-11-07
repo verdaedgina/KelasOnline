@@ -17,7 +17,7 @@ return new class extends Migration
                   ->constrained('users') // Mengacu ke kolom id di tabel users
                   ->onDelete('cascade'); // Menghapus profil jika user dihapus
             $table->string('username'); // Kolom untuk username
-            $table->string('level'); // Kolom untuk level
+            $table->string('level')->default('pemula');; // Kolom untuk level
             $table->integer('score')->default(0); // Kolom untuk score dengan default 0
             $table->timestamps(); // Menambahkan kolom created_at dan updated_at
         });

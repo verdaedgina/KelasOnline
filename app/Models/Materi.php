@@ -13,6 +13,7 @@ class Materi extends Model
         'image',
         'kelas',
         'mapel',
+        'materi',
         'video',
         'artikel'
     ];

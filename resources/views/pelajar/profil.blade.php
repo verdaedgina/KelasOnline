@@ -1,6 +1,3 @@
-@extends('layouts.app')  <!-- Assuming you have a layout file named app.blade.php -->
-
-@section('content')
 <html>
 <head>
     <title>Kelas Online</title>
@@ -20,8 +17,6 @@
             position: relative;
         }
         .logo {
-            display: flex;
-            align-items: center;
             font-size: 24px;
             font-weight: bold;
             color: #000000;
@@ -42,12 +37,15 @@
             text-align: left;
             width: 300px;
         }
-        .info-box div {
+        .info-box div,
+        .info-box input {
             background-color: #f7c6c6;
             padding: 10px;
             border-radius: 20px;
             margin-bottom: 10px;
             font-weight: bold;
+            width: 100%;
+            box-sizing: border-box;
         }
         .upgrade-button {
             background-color: #f7c6c6;
@@ -57,6 +55,9 @@
             display: inline-block;
             font-weight: bold;
             cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            color: #000;
         }
         .footer {
             text-align: center;
@@ -69,34 +70,29 @@
             font-size: 24px;
             cursor: pointer;
             color: #c98b8b;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo">
-            KELAS ONLINE
-        </div>
-    </div>
-    <div class="arrow-left">
+    <a href="/home" class="arrow-left">
         <i class="fas fa-arrow-left"></i>
-    </div>
+    </a>
     <div class="content">
         <div class="profile-icon">
             <i class="fas fa-user-circle"></i>
         </div>
         <div class="info-box">
-            <div>{{ $profil->username }}</div>
-            <div>{{ $profil->email }}</div> <!-- Assuming you have a 'name' field in your 'profil' table -->
+            <div>Nama: {{ $user->username }}</div>
+            <div>Email: {{ $user->email }}</div>
             <div>Tingkatan Level: {{ $profil->level }}</div>
             <div>Score: {{ $profil->score }}</div>
         </div>
     </div>
     <div class="footer">
-        <div class="upgrade-button">
+        <a href="/level" class="upgrade-button">
             Tingkatkan Level? Klik di sini
-        </div>
+        </a>
     </div>
 </body>
 </html>
-@endsection
