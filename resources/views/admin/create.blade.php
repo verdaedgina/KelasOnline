@@ -24,6 +24,11 @@
         width: 400px;
     }
 
+    .form-box h2 {
+        text-align: center;
+        color: #a76360;
+    }
+
     form {
         display: flex;
         flex-direction: column;
@@ -55,22 +60,21 @@
 
 <section class="form-container">
     <div class="form-box">
-        <div class="form-header">
-            <h2>Tambah Mapel</h2>
-        </div>
+        <h2>Tambah Mapel</h2>
         <form action="{{ route('admin.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            <!-- File input for image -->
             <input type="file" name="image" required>
 
-            <!-- Dropdown Kelas -->
-             <select name="kelas" required>
+            <!-- Dropdown for selecting Kelas -->
+            <select name="kelas" required>
                 <option value="" disabled selected>Pilih Kelas</option>
-                    @foreach($kelasList as $kelas)
-                         <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
-                    @endforeach
-                </select>   
+                @foreach($kelasList as $kelas)
+                    <option value="{{ $kelas->nama_kelas }}">{{ $kelas->nama_kelas }}</option>
+                @endforeach
+            </select>   
 
-            <!-- Dropdown Mapel -->
+            <!-- Dropdown for selecting Mapel -->
             <select name="mapel" required>
                 <option value="" disabled selected>Pilih Mapel</option>
                 @foreach($mapels as $mapel)
@@ -78,6 +82,7 @@
                 @endforeach
             </select>
 
+            <!-- Input fields for Materi, Artikel, and Video -->
             <input type="text" name="materi" placeholder="Masukkan materi" required>
             <input type="url" name="artikel" placeholder="Masukkan link artikel" required>
             <input type="url" name="video" placeholder="Masukkan link video" required>
