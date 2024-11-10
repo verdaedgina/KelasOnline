@@ -68,18 +68,20 @@
 </head>
 <body>
     <div class="content">
-        @foreach ($materi as $materi)
-        <div class="card">
-            <img src="{{ Storage::url('public/materis/') . $materi->image }}">
-            <h4>{{ $materi->mapel }}</h4>
-            <h6>{{ $materi->materi }}</h6>
-            <h6>{{ $materi->kelas }}</h6>
-            <!-- Trigger Modal -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}">
-                Pilih
-            </button>
-        </div>
-        @endforeach
+    @foreach ($materi as $materi)
+<div class="card">
+    <img src="{{ Storage::url('public/materis/') . $materi->image }}">
+    <h4>{{ $materi->mapel }}</h4>
+    <h6>{{ $materi->materi }}</h6>
+    <h6>{{ $materi->kelas }}</h6>
+    <!-- Trigger Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" 
+        data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}" data-id="{{ $materi->id }}">
+        Pilih
+    </button>
+</div>
+@endforeach
+
     </div>
 
     <!-- Modal -->

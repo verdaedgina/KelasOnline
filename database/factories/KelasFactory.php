@@ -16,10 +16,11 @@ class KelasFactory extends Factory
      */
     public function definition(): array
     {
-        $kelas = $this->faker->sentence();
+        $nama_kelas = implode(' ', $this->faker->words(2)); // Dua kata untuk nama kelas
+
         return [
-            'kelas' => $kelas,
-            'materi' => str()->materi($kelas),
+            'nama_kelas' => $nama_kelas,
+            'slug' => str()->slug($nama_kelas),
         ];
     }
 }

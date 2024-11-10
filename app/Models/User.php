@@ -45,5 +45,6 @@ class User extends Authenticatable
     //         get: fn ($value) =>  ["admin","siswa"][$value], // Mengembalikan nilai asli, tidak perlu diubah
     //     );
     // }
+    
 }
 
