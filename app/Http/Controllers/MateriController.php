@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Materi;
-use App\Models\Kelas; // Import the Kelas model
-use App\Models\Mapel; // Import the Mapel model
+use App\Models\Kelas;
+use App\Models\Mapel;
 use Illuminate\Support\Facades\Storage;
-
-
 
 class MateriController extends Controller
 {
@@ -42,7 +40,7 @@ class MateriController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi
+        // Validasi input
         $request->validate([
             'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kelas' => 'required',
@@ -55,8 +53,8 @@ class MateriController extends Controller
         // Proses upload gambar jika ada
         $image = $request->file('image');
         $image->storeAs('public/materis', $image->hashName());
-    
-        // Simpan data
+
+        // Simpan data materi
         Materi::create([
             'image' => $image->hashName(),
             'kelas' => $request->kelas,
@@ -65,24 +63,9 @@ class MateriController extends Controller
             'video' => $request->video,
             'artikel' => $request->artikel,
         ]);
-        return redirect()->route('admin.dataMapel')->with('success', 'Mapel berhasil ditambahkan.');
-        
-    }
-    
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        $materi = Materi::find($id);
-        if (!$materi) {
-            return redirect()->route('pelajar.produk')->with('error', 'Materi tidak ditemukan.');
-        }
-    
-        return view('pelajar.produk', compact('materi')); // Passing 'materi' to the view
+        return redirect()->route('admin.dataMapel')->with('success', 'Mapel berhasil ditambahkan.');
     }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -99,20 +82,31 @@ class MateriController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-{
-    // Validasi input
-    $request->validate([
-        'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        'kelas' => 'required',
-        'mapel' => 'required',
-        'materi' => 'required',
-        'video' => 'required|url',
-        'artikel' => 'required|url',
-    ]);
+    {
+        // Validasi input
+        $request->validate([
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'kelas' => 'required',
+            'mapel' => 'required',
+            'materi' => 'required',
+            'video' => 'required|url',
+            'artikel' => 'required|url',
+        ]);
 
-    $materi = Materi::findOrFail($id);
+        $materi = Materi::findOrFail($id);
 
-    if (!$request->hasFile('image')) {
+        // Jika tidak ada gambar baru, update materi tanpa mengubah gambar
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            Storage::disk('local')->delete('public/materis/' . $materi->image);
+
+            // Upload gambar baru
+            $image = $request->file('image');
+            $image->storeAs('public/materis', $image->hashName());
+            $materi->image = $image->hashName();
+        }
+
+        // Update data materi
         $materi->update([
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
@@ -120,28 +114,9 @@ class MateriController extends Controller
             'video' => $request->video,
             'artikel' => $request->artikel,
         ]);
-    } else {
-        // Hapus gambar lama
-        Storage::disk('local')->delete('public/materis/' . $materi->image);
 
-        // Upload gambar baru
-        $image = $request->file('image');
-        $image->storeAs('public/materis', $image->hashName());
-
-        $materi->update([
-            'image' => $image->hashName(),
-            'kelas' => $request->kelas,
-            'mapel' => $request->mapel,
-            'materi' => $request->materi,
-            'video' => $request->video,
-            'artikel' => $request->artikel,
-        ]);
+        return redirect()->route('admin.dataMapel')->with('success', 'Data berhasil diperbarui.');
     }
-
-    // Redirect dengan pesan sukses
-    return redirect()->route('admin.dataMapel')->with(['success' => 'Data Berhasil Diupdate!']);
-}
-
 
     /**
      * Remove the specified resource from storage.
@@ -151,9 +126,9 @@ class MateriController extends Controller
         $materi = Materi::findOrFail($id);
         Storage::disk('local')->delete('public/materis/' . $materi->image);
         $materiDeleted = $materi->delete();
-      
+
         return $materiDeleted 
-            ? redirect()->route('admin.data')->with(['success' => 'Data Berhasil Dihapus!']) 
-            : redirect()->route('admin.data')->with(['error' => 'Data Gagal Dihapus!']);
+            ? redirect()->route('admin.dataMapel')->with('success', 'Data berhasil dihapus.')
+            : redirect()->route('admin.dataMapel')->with('error', 'Data gagal dihapus.');
     }
 }

@@ -82,6 +82,20 @@
         <div class="profile-icon">
             <i class="fas fa-user-circle"></i>
         </div>
+
+        <!-- Menampilkan pesan sukses atau error -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
         <div class="info-box">
             <div>Nama: {{ $user->username }}</div>
             <div>Email: {{ $user->email }}</div>

@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class mapel extends Model
 {
     use HasFactory;
+    protected $table = 'mapels';
     protected $fillable = [
         'idKelas',
         'namaMapel',
+        'slug',
     ];
+
     public function Kelas()
     {
         return $this->belongsTo(Kelas::class);

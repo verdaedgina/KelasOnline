@@ -9,7 +9,7 @@ class kelas extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'kelas',
+        'nama_kelas','slug',
     ];
     
 }

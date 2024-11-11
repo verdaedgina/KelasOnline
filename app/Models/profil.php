@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,20 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 class Profil extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
-        'user_id',
-        'username',
-        'level',
-        'score',
+        'user_id', 'score', 'level'
     ];
 
+    // Method untuk update score dan level
     public function updateScoreAndLevel($increment)
     {
-        // Increment the score
+        // Tambahkan skor
         $this->score += $increment;
-        
-        // Update the level based on the new score
+
+        // Misalnya, jika skor >= 100, level berubah
         if ($this->score < 5) {
             $this->level = 'pemula';
         } elseif ($this->score < 10) {
@@ -34,8 +31,7 @@ class Profil extends Model
             $this->level = 'master';
         }
 
-        // Save the changes to the database
+        // Simpan perubahan ke database
         $this->save();
     }
-
 }
