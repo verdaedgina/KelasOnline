@@ -114,7 +114,6 @@ class MateriController extends Controller
 
     if (!$request->hasFile('image')) {
         $materi->update([
-            'image' => $image->hashName(),
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
             'materi' => $request->materi,

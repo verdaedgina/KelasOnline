@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfilController;
+use App\Http\Controllers\SiswaController;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -25,9 +28,6 @@ Route::get('/level', function () {
 Route::post('/profil', [ProfilController::class, 'readMaterial'])->middleware('auth');
 Route::get('/profil', [ProfilController::class, 'showProfile'])->name('pelajar.profil');
 
-
-
-
 Auth::routes();
 
 // Rute untuk siswa
@@ -44,6 +44,12 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 }); 
 
-Route::get('/akun', function () {
-    return view('admin.dataAkun');
+//Route::get('/akun', function () {
+//    return view('admin.dataAkun');
+//});
+
+//Route::get('/data-akun', [SiswaController::class, 'index'])->name('dataAkun');
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/akun', [UserController::class, 'index'])->name('akun.index');
 });
