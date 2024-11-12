@@ -8,8 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class kelas extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'nama_kelas','slug',
-    ];
-    
+    protected $fillable = ['nama_kelas','slug'];
 }

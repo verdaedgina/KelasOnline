@@ -10,12 +10,12 @@ class mapel extends Model
     use HasFactory;
     protected $table = 'mapels';
     protected $fillable = [
-        'idKelas',
+        'id_kelas',
         'namaMapel',
         'slug',
     ];
 
-    public function Kelas()
+    public function kelas()
     {
         return $this->belongsTo(Kelas::class);
     } 

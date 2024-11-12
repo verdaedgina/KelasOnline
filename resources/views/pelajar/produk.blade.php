@@ -121,25 +121,6 @@
         $('#artikelLink').attr('href', artikelUrl).show(); // Show and set article link
     });
 
-    $.ajax({
-    url: "{{ route('pelajar.profil') }}",
-    type: "POST",
-    data: {
-        _token: "{{ csrf_token() }}",
-        increment: 1 // Nilai untuk menambah skor
-    },
-    success: function(response) {
-        if (response.success) {
-            window.open(link, '_blank');
-        } else {
-            alert(response.message);
-        }
-    },
-    error: function() {
-        alert('Gagal memperbarui skor. Coba lagi.');
-    }
-});
-
 </script>
 
 

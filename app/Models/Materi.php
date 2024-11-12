@@ -16,6 +16,5 @@ class Materi extends Model
         'materi',
         'video',
         'artikel'
-    ];
-    
+    ];    
 }
