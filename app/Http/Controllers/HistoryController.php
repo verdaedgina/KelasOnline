@@ -10,18 +10,18 @@ class HistoryController extends Controller
 {
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'materi_id' => 'required|exists:materi,id'
+        $request->validate([
+            'user_id' => 'required',
+            'materi_id' => 'required',
         ]);
-    
-        // Menyimpan data ke tabel history
-        $history = new History();
-        $history->user_id = $validatedData['user_id'];
-        $history->materi_id = $validatedData['materi_id'];
-        $history->save();
-    
-        return response()->json(['message' => 'Riwayat berhasil disimpan']);
+
+        // Simpan data history
+        History::create([
+            'user_id' => $request->user_id,
+            'materi_id' => $request->materi_id,
+        ]);
+
+        return redirect()->route('pelajar.produk')->with('success', 'Mapel berhasil ditambahkan.');
     }
     
 

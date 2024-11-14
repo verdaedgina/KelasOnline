@@ -78,10 +78,24 @@
         <h6>{{ $materi->materi }}</h6>
         <h6>{{ $materi->kelas }}</h6>
         <!-- Trigger Modal -->
+
+
         <button type="button" class="btn btn-primary watch-video-btn" data-toggle="modal" data-target="#kelasModal"
         data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}" data-id="{{ $materi->id }}">
             Pilih
         </button>
+
+        <form action="{{ route('history.store') }}" method="POST">
+        @csrf
+        <!-- Input tersembunyi untuk user_id yang berasal dari user yang sedang login -->
+        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
+        <!-- Input tersembunyi untuk materi_id -->
+        <input type="hidden" name="materi_id" value="{{ $materi->id }}">
+
+        <!-- Tombol untuk menyimpan history -->
+        <button type="submit" class="btn btn-primary mt-3">Simpan ke History</button>
+    </form>
 
     </div>
     @endforeach

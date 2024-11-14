@@ -77,9 +77,10 @@
  </head>
  <body>
   <div class="content">
-   <h2 href="/profil">
-    Tingkatan Level
-   </h2>
+    <a href="{{ route('pelajar.profil') }}">
+        <h2>Tingkatan Level</h2>
+    </a>
+
    <div class="pyramid">
     <div class="level" style="background-color: #FFA500; width: 80px; top: 60px;">
      Master
