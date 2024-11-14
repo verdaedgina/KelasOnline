@@ -11,14 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('materis', function (Blueprint $table) {
+        Schema::create('create_siswa_tabels', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
-            $table->string('kelas');
-            $table->string('mapel');
-            $table->string('materi');
-            $table->string('video');
-            $table->string('artikel');
+            $table->string('nama');
+            $table->string('email');
+            $table->string('password');
             $table->timestamps();
         });
     }
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('materis');
+        Schema::dropIfExists('create_siswa_tabels');
     }
 };

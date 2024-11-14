@@ -1,20 +1,21 @@
 <?php
+
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 use App\Models\Kelas;
-class MateriFactory extends Factory
 
+class MateriFactory extends Factory
 {
     public function definition(): array
     {
-        $namaMapel = $this->faker->word(); // Gunakan satu kata untuk nama mata pelajaran
+        $namaMapel = $this->faker->word(); // Menghasilkan satu kata untuk nama mata pelajaran
 
         return [
-            'id_kelas' => Kelas::inRandomOrder()->first()->id,
+            'id_kelas' => Kelas::inRandomOrder()->first()?->id ?? Kelas::factory(), // Menggunakan factory sebagai fallback
             'namaMapel' => $namaMapel,
-            'slug' => str()->slug($namaMapel), // Membuat slug berdasarkan namaMapel
+            'slug' => Str::slug($namaMapel), // Membuat slug dari namaMapel
         ];
     }
 }
-

@@ -31,15 +31,16 @@ class MateriController extends Controller
     public function create(Request $request)
     {
         $kelasList = Kelas::all(); // Ambil semua kelas
-        $mapels = []; // Inisialisasi array mapel
-
+        $mapels = Mapel::all(); // Inisialisasi array mapel
+    
         // Jika ada id kelas yang dipilih, ambil mapel terkait
         if ($request->has('id_Kelas')) {
             $mapels = Mapel::where('id_kelas', $request->id_Kelas)->get();
         }
-
-        return view('livewire.create', compact('kelasList', 'mapels'));
+    
+        return view('admin.create', compact('kelasList', 'mapels'));
     }
+    
     /**
      * Store a newly created resource in storage.
      */

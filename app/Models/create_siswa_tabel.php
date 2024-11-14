@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class kelas extends Model
+class create_siswa_tabel extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama_kelas','slug'];
-
-    public function mapels()
-{
-    return $this->hasMany(Mapel::class);
-}
+    protected $fillable = [
+        'nama',
+        'email',
+        'password',
+    ];
 }

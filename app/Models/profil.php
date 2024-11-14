@@ -9,6 +9,11 @@ class Profil extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'score', 'level'
+        'user_id', 'score', 'level', 'username'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

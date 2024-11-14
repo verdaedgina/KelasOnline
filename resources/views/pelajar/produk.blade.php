@@ -1,10 +1,13 @@
 @extends('layouts.app')
+
 @section('content')
 <html>
 <head>
     <title>Kelas Online</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +18,7 @@
         .content {
             display: flex;
             justify-content: center;
-            flex-wrap: wrap; /* Allow cards to wrap to the next line */
+            flex-wrap: wrap;
             padding: 20px;
         }
         .card {
@@ -69,19 +72,19 @@
 <body>
     <div class="content">
     @foreach ($materi as $materi)
-<div class="card">
-    <img src="{{ Storage::url('public/materis/') . $materi->image }}">
-    <h4>{{ $materi->mapel }}</h4>
-    <h6>{{ $materi->materi }}</h6>
-    <h6>{{ $materi->kelas }}</h6>
-    <!-- Trigger Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#kelasModal" 
+    <div class="card">
+        <img src="{{ Storage::url('public/materis/') . $materi->image }}">
+        <h4>{{ $materi->mapel }}</h4>
+        <h6>{{ $materi->materi }}</h6>
+        <h6>{{ $materi->kelas }}</h6>
+        <!-- Trigger Modal -->
+        <button type="button" class="btn btn-primary watch-video-btn" data-toggle="modal" data-target="#kelasModal"
         data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}" data-id="{{ $materi->id }}">
-        Pilih
-    </button>
-</div>
-@endforeach
+            Pilih
+        </button>
 
+    </div>
+    @endforeach
     </div>
 
     <!-- Modal -->
@@ -97,31 +100,58 @@
                 <div class="modal-body">
                     <p>Pilih jenis materi yang ingin Anda akses:</p>
                     <div id="materiLinks">
-                        <a href="#" id="videoLink" target="_blank" class="btn btn-info" style="display: none;">Video</a>
-                        <a href="#" id="artikelLink" target="_blank" class="btn btn-warning" style="display: none;">Artikel</a>
+                        <a href="#" id="videoLink" target="_blank" class="btn btn-info" style="display: none;" data-activity-type="view_video">Video</a>
+                        <a href="#" id="artikelLink" target="_blank" class="btn btn-warning" style="display: none;" data-activity-type="view_artikel">Artikel</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
 
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script>
-    // When the modal is shown, get the video and article links from the button that triggered it
-    $('#kelasModal').on('show.bs.modal', function (event) {
-        const button = $(event.relatedTarget); // Button that triggered the modal
-        const videoUrl = button.data('video'); // Extract video link
-        const artikelUrl = button.data('artikel'); // Extract article link
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        // Set the href attributes for the links
-        $('#videoLink').attr('href', videoUrl).show(); // Show and set video link
-        $('#artikelLink').attr('href', artikelUrl).show(); // Show and set article link
+    <script>
+$(document).ready(function() {
+    // Menangani klik pada tombol "Pilih"
+    $('.watch-video-btn').on('click', function() {
+        var materiId = $(this).data('id');
+        var video = $(this).data('video');
+        var artikel = $(this).data('artikel');
+
+        // Kirim data ke controller melalui AJAX
+        $.ajax({
+        url: '/history/add/' + materiId, // The correct route URL
+        method: 'POST',
+        data: {
+            _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token
+            materi_id: materiId // Any other data you need to send
+        },
+        success: function(response) {
+            alert(response.message); // Handle success response
+        },
+        error: function(xhr, status, error) {
+            alert('Terjadi kesalahan: ' + error); // Handle error response
+        }
     });
+
+    });
+
+    // Ketika modal ditampilkan, atur link video dan artikel
+    $('#kelasModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget); // Tombol yang memicu modal
+        const videoUrl = button.data('video'); // Ambil URL video
+        const artikelUrl = button.data('artikel'); // Ambil URL artikel
+
+        // Setel href untuk video dan artikel
+        $('#videoLink').attr('href', videoUrl).show();
+        $('#artikelLink').attr('href', artikelUrl).show();
+    });
+});
 
 </script>
 
-
+</body>
+</html>
 @endsection

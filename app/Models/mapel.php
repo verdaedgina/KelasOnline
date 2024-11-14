@@ -18,5 +18,6 @@ class mapel extends Model
     public function kelas()
     {
         return $this->belongsTo(Kelas::class);
-    } 
+    }
+    
 }
