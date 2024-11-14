@@ -8,7 +8,8 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::where('role', 'user')->get(); // Hanya pengguna dengan role 'user'
+        // Ambil semua data pengguna dengan role 'user'
+        $users = User::where('role', '!=', 'admin')->get();
         return view('admin.users.index', compact('users'));
     }
 }

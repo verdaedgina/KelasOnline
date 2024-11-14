@@ -16,6 +16,6 @@ class SiswaController extends Controller
         $users = create_siswa_tabel::all();
 
         // Kirim data ke view
-        return view('dataAkun', compact('users'));
+        return view('admin.users.index', compact('users'));
     }
 }

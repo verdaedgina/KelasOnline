@@ -53,5 +53,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 //Route::get('/data-akun', [SiswaController::class, 'index'])->name('dataAkun');
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/akun', [UserController::class, 'index'])->name('akun.index');
+  Route::get('/akun', [UserController::class, 'index'])->name('akun.index');
 });
+
+//Route::get('/admin/users', [UserController::class, 'index'])->middleware('admin');
