@@ -4,13 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MateriController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfilController;
-<<<<<<< HEAD
 use App\Http\Controllers\HistoryController;
-=======
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
->>>>>>> 2d08580776ea3e68c2541f2a9f24c83c6e2bf30f
 
 Route::get('/', function () {
     return view('auth.login');
