@@ -34,17 +34,5 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Mengambil role pengguna dalam format yang dapat dibaca.
-     *
-     * @return Attribute
-     */
-    // protected function role(): Attribute
-    // {
-    //     return new Attribute(
-    //         get: fn ($value) =>  ["admin","siswa"][$value], // Mengembalikan nilai asli, tidak perlu diubah
-    //     );
-    // }
-    
 }
 

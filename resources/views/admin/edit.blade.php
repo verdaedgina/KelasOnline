@@ -14,6 +14,7 @@
         justify-content: center;
         align-items: center;
         height: 80vh;
+        margin-top: 100px;
     }
 
     .form-box {
@@ -67,23 +68,23 @@
 
             <!-- Dropdown Kelas -->
             <select name="kelas" required>
-                <option value="" disabled>Pilih Kelas</option>
-                @foreach($kelasList as $kelas)
-                    <option value="{{ $kelas->nama_kelas }}" {{ $kelas->nama_kelas == $materi->kelas ? 'selected' : '' }}>
-                        {{ $kelas->nama_kelas }}
-                    </option>
-                @endforeach
-            </select>   
+                    <option value="" disabled>Pilih Kelas</option>
+                    @foreach($kelasList as $kelas)
+                        <option value="{{ $kelas->nama_kelas }}" {{ $kelas->id == $materi->kelas_id ? 'selected' : '' }}>
+                            {{ $kelas->nama_kelas }}
+                        </option>
+                    @endforeach
+                </select>
 
-            <!-- Dropdown Mapel -->
-            <select name="mapel" required>
-                <option value="" disabled>Pilih Mapel</option>
-                @foreach($mapels as $mapel)
-                    <option value="{{ $mapel->namaMapel }}" {{ $mapel->namaMapel == $materi->mapel ? 'selected' : '' }}>
-                        {{ $mapel->namaMapel }}
-                    </option>
-                @endforeach
-            </select>
+                <!-- Dropdown Mapel yang terhubung dengan Kelas -->
+                <select name="mapel" required>
+                    <option value="" disabled>Pilih Mapel</option>
+                    @foreach($mapels as $mapel)
+                        <option value="{{ $mapel->namaMapel }}" {{ $mapel->id == $materi->mapel_id ? 'selected' : '' }}>
+                            {{ $mapel->namaMapel }}
+                        </option>
+                    @endforeach
+                </select>
 
             <input type="text" name="materi" placeholder="Masukkan materi" value="{{ $materi->materi }}" required>
             <input type="url" name="artikel" placeholder="Masukkan link artikel" value="{{ $materi->artikel }}" required>

@@ -28,23 +28,29 @@ class MateriController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $kelasList = Kelas::all(); // Ambil semua kelas
-        $mapels = Mapel::all(); // Ambil semua mapel
-        return view('admin.create', compact('kelasList', 'mapels'));
-    }
+        $mapels = []; // Inisialisasi array mapel
 
+        // Jika ada id kelas yang dipilih, ambil mapel terkait
+        if ($request->has('id_Kelas')) {
+            $mapels = Mapel::where('id_kelas', $request->id_Kelas)->get();
+        }
+
+        return view('livewire.create', compact('kelasList', 'mapels'));
+    }
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Validasi input
+        // Validasi input\
+        
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'kelas' => 'required',
             'mapel' => 'required',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'materi' => 'required',
             'video' => 'required|url',
             'artikel' => 'required|url',
@@ -56,9 +62,9 @@ class MateriController extends Controller
 
         // Simpan data materi
         Materi::create([
-            'image' => $image->hashName(),
             'kelas' => $request->kelas,
             'mapel' => $request->mapel,
+            'image' => $image->hashName(),
             'materi' => $request->materi,
             'video' => $request->video,
             'artikel' => $request->artikel,
@@ -130,5 +136,22 @@ class MateriController extends Controller
         return $materiDeleted 
             ? redirect()->route('admin.dataMapel')->with('success', 'Data berhasil dihapus.')
             : redirect()->route('admin.dataMapel')->with('error', 'Data gagal dihapus.');
+    }
+
+    public function pilihMateri($materiId)
+    {
+        $user = auth()->username(); // Ambil user yang sedang login
+        $profil = $username->profil; // Pastikan ada relasi profil dengan user
+        
+        $materi = Materi::find($materiId); // Ambil materi yang dipilih
+
+        if ($materi) {
+            // Tambah skor pengguna
+            $profil->updateScoreAndLevel(1); // Menambah 1 ke skor dan otomatis memperbarui level
+            
+            return redirect()->route('materi.index')->with('success', 'Skor dan level berhasil diperbarui!');
+        }
+
+        return redirect()->route('materi.index')->with('error', 'Materi tidak ditemukan.');
     }
 }

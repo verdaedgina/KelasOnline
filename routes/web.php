@@ -26,9 +26,7 @@ Route::get('/level', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
-    // Rute untuk menampilkan dan mengedit profil
     Route::get('/profil', [ProfilController::class, 'showProfile'])->name('pelajar.profil');
-    Route::post('/profil', [ProfilController::class, 'readMaterial']);
 });
 
 Auth::routes();
@@ -44,6 +42,7 @@ Route::middleware(['auth', 'user-access:siswa'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admin', MateriController::class);
     Route::get('/admin', [MateriController::class, 'index'])->name('admin.dataMapel');
+    Route::get('/admin/create', Create::class);
 }); 
 
 //Route::get('/akun', function () {
