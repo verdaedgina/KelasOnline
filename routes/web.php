@@ -33,8 +33,8 @@ Auth::routes();
 Route::middleware(['auth', 'user-access:siswa'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/produk', [MateriController::class, 'produk'])->name('pelajar.produk');
-    Route::post('/history/add/{materiId}', [HistoryController::class, 'add']);
-    
+    Route::post('/materi', [HistoryController::class, 'store'])->name('history.store');
+
 });
 
 

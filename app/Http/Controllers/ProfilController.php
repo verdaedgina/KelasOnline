@@ -8,12 +8,13 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfilController extends Controller
 {
-    // Menampilkan profil pengguna
+    // Menampilkan profil pengguna dan memperbarui skor serta level
     public function showProfile()
     {
         $user = Auth::user();
         $profil = Profil::where('user_id', $user->id)->first();
 
+        // Jika profil belum ada, buat profil baru untuk pengguna
         if (!$profil) {
             $profil = Profil::create([
                 'user_id' => $user->id,
@@ -26,51 +27,16 @@ class ProfilController extends Controller
         // Hitung jumlah history untuk pengguna yang sedang login
         $totalUserHistory = History::where('user_id', $user->id)->count();
         
-        // Debugging, pastikan jumlah history dihitung dengan benar
+        // Hitung skor berdasarkan jumlah history dikali 2
+        $score = $totalUserHistory * 2;
+
+        // Update skor dan level
+        $profil->score = $score;
+        $profil->level = $this->calculateLevel($score);
+        $profil->save();
 
         return view('pelajar.profil', compact('profil', 'totalUserHistory'));
     }
-
-
-    // Fungsi untuk memperbarui profil pengguna
-   public function updateProfile()
-   {
-       $profil = Profil::where('user_id', Auth::id())->first();
-   
-       if ($profil) {
-           // Hitung jumlah history untuk pengguna
-           $userHistoryCount = History::where('user_id', Auth::id())->count();
-   
-           // Debugging: Pastikan $userHistoryCount berisi nilai yang benar
-           dd($userHistoryCount);
-   
-           // Kalikan jumlah history dengan 2 untuk mendapatkan skor tambahan
-           $scoreToAdd = $userHistoryCount * 2; // Skor bertambah dua kali lipat
-   
-           // Tambahkan skor ke profil pengguna
-           $profil->score += $scoreToAdd;
-   
-           // Tentukan level berdasarkan skor yang diperoleh
-           $profil->level = $this->calculateLevel($profil->score);
-   
-           // Debugging: Lihat nilai variabel sebelum menyimpan
-           dd($userHistoryCount, $scoreToAdd, $profil->score);
-   
-           // Simpan perubahan pada profil
-           $profil->save();
-   
-           // Kembalikan response dengan skor dan level yang sudah diperbarui
-           return response()->json([
-               'message' => 'Skor berhasil diperbarui',
-               'score' => $profil->score,
-               'level' => $profil->level
-           ]);
-       }
-   
-       return response()->json(['message' => 'Profil tidak ditemukan'], 404);
-   }
-   
-
 
     // Metode untuk menentukan level berdasarkan skor
     private function calculateLevel($score)

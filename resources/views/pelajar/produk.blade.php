@@ -112,45 +112,47 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    @auth
     <script>
-$(document).ready(function() {
-    // Menangani klik pada tombol "Pilih"
-    $('.watch-video-btn').on('click', function() {
-        var materiId = $(this).data('id');
-        var video = $(this).data('video');
-        var artikel = $(this).data('artikel');
+    $(document).ready(function() {
+        // Menangani klik pada tombol "Pilih"
+        $('.watch-video-btn').on('click', function() {
+            var materiId = $(this).data('id');
+            var video = $(this).data('video');
+            var artikel = $(this).data('artikel');
 
-        // Kirim data ke controller melalui AJAX
-        $.ajax({
-        url: '/history/add/' + materiId, // The correct route URL
-        method: 'POST',
-        data: {
-            _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token
-            materi_id: materiId // Any other data you need to send
-        },
-        success: function(response) {
-            alert(response.message); // Handle success response
-        },
-        error: function(xhr, status, error) {
-            alert('Terjadi kesalahan: ' + error); // Handle error response
-        }
+            // AJAX untuk menyimpan materi ke history
+            $.ajax({
+                url: "{{ route('history.store') }}",
+                type: "POST",
+                data: {
+                    _token: "{{ csrf_token() }}",
+                    user_id: "{{ auth()->user()->id }}", // ID user yang sedang login
+                    materi_id: materiId
+                },
+                success: function(response) {
+                    alert(response.message); // Menampilkan pesan sukses
+                },
+                error: function(xhr) {
+                    alert('Terjadi kesalahan saat menyimpan history');
+                }
+            });
+        });
+
+        // Ketika modal ditampilkan, atur link video dan artikel
+        $('#kelasModal').on('show.bs.modal', function (event) {
+            const button = $(event.relatedTarget);
+            const videoUrl = button.data('video');
+            const artikelUrl = button.data('artikel');
+            
+            // Setel href untuk video dan artikel
+            $('#videoLink').attr('href', videoUrl).show();
+            $('#artikelLink').attr('href', artikelUrl).show();
+        });
     });
+    </script>
+    @endauth
 
-    });
-
-    // Ketika modal ditampilkan, atur link video dan artikel
-    $('#kelasModal').on('show.bs.modal', function (event) {
-        const button = $(event.relatedTarget); // Tombol yang memicu modal
-        const videoUrl = button.data('video'); // Ambil URL video
-        const artikelUrl = button.data('artikel'); // Ambil URL artikel
-
-        // Setel href untuk video dan artikel
-        $('#videoLink').attr('href', videoUrl).show();
-        $('#artikelLink').attr('href', artikelUrl).show();
-    });
-});
-
-</script>
 
 </body>
 </html>
