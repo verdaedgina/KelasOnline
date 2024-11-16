@@ -1,32 +1,29 @@
 <?php
-
-namespace App\Livewire;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Kelas;
 use App\Models\Mapel;
-use Livewire\Attributes\Title;
 
-class Create extends Component
+class FormMapel extends Component
 {
-    public $kelas = 'choose';
-    
-    public function getMapel()
-    {
-        return Mapel::where('id_kelas', $this->kelas)->orderBy('namaMapel')->get();
-    }
+    // Di dalam komponen Livewire FormMapel.php
+public $kelasList; // untuk menangkap kelas yang dipilih
+public $mapels = []; // untuk menampung mapel sesuai kelas yang dipilih
 
-    public function kelas()
-    {
-        return Kelas::orderBy('nama_kelas')->get();
-    }
+public function getKelasList()
+{
+    // Ambil mapel berdasarkan kelas yang dipilih
+   $this->mapels = Mapel::where('id_kelas', $this->kelas)->get();
+//     return Mapel::where('id_kelas', $this->kelas)->orderBy('namaMapel')->get();
+}
 
-    #[Title('Create')]
-    public function render()
-    {
-        return view('livewire.create',[
-            'kelas' => $this->kelas(),
-            'mapel' => $this->getMapel(),
-        ]);
-    }
+public function render()
+{
+    // Pastikan kelasList berisi data kelas yang benar
+    $kelasList = Kelas::all(); 
+
+    return view('admin.form-mapel', compact('kelasList'));
+}
+
 }

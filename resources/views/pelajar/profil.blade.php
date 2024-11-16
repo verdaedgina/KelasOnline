@@ -1,5 +1,9 @@
-<html>
+<!-- resources/views/profile.blade.php -->
+<!DOCTYPE html>
+<html lang="id">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelas Online</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
     <style>
@@ -96,12 +100,16 @@
             </div>
         @endif
 
+        <!-- resources/views/pelajar/profil.blade.php -->
         <div class="info-box">
-            <div>Nama: {{ $user->username }}</div>
-            <div>Email: {{ $user->email }}</div>
+            <div>Nama: {{ $profil->username }}</div>
+            <div>Email: {{ $profil->user->email }}</div> <!-- Akses email melalui relasi user -->
             <div>Tingkatan Level: {{ $profil->level }}</div>
-            <div>Score: {{ $profil->score }}</div>
+            <div>Score: {{ $profil->score }}</div> <!-- Menampilkan score -->
+            <div>Total History: {{ $totalUserHistory }}</div> <!-- Menampilkan total history -->
         </div>
+
+
     </div>
     <div class="footer">
         <a href="/level" class="upgrade-button">

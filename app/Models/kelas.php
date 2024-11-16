@@ -8,5 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class kelas extends Model
 {
     use HasFactory;
+
     protected $fillable = ['nama_kelas','slug'];
+
+    public function mapels()
+{
+    return $this->hasMany(Mapel::class);
+}
 }

@@ -17,4 +17,9 @@ class Materi extends Model
         'video',
         'artikel'
     ];    
+
+    public function histories()
+    {
+        return $this->hasMany(History::class);
+    }
 }
