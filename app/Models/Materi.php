@@ -19,7 +19,8 @@ class Materi extends Model
     ];    
 
     public function histories()
-    {
-        return $this->hasMany(History::class);
-    }
+{
+    return $this->hasMany(History::class);
+}
+
 }

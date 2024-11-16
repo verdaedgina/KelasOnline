@@ -1,44 +1,28 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use App\Models\Profil;
-use App\Models\Materi;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class HistoryController extends Controller
 {
-    public function add(Request $request, $materiId)
+    public function store(Request $request)
     {
-        // Validasi apakah materi dengan ID tersebut ada
-        $materi = Materi::find($materiId);
-    
-        if (!$materi) {
-            return response()->json(['message' => 'Materi tidak ditemukan'], 404);
-        }
-    
-        // Simpan data ke dalam tabel Profil
-        $profil = Profil::create([
-            'user_id' => Auth::id(),
-            'materi_id' => $materiId,
-        ]);
-    
-        return response()->json(['message' => 'Profil berhasil disimpan', 'profil' => $profil], 200);
-    }
-
-    public function addHistory(Request $request, $materiId)
-    {
-        // Tambahkan entri history
-        $history = History::create([
-            'user_id' => Auth::id(),
-            'materi_id' => $materiId,
+        $request->validate([
+            'user_id' => 'required',
+            'materi_id' => 'required',
         ]);
 
-        // Panggil addScore untuk memperbarui skor
-        $this->addScore();
+        // Simpan data history
+        History::create([
+            'user_id' => $request->user_id,
+            'materi_id' => $request->materi_id,
+        ]);
 
-        return response()->json(['message' => 'History ditambahkan dan skor diperbarui']);
+        return redirect()->route('pelajar.produk')->with('success', 'Mapel berhasil ditambahkan.');
     }
-
     
+
 }

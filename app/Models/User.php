@@ -33,11 +33,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    use Notifiable;
 
     public function histories()
-    {
-        return $this->hasMany(History::class);
-    }
-    
+{
+    return $this->hasMany(History::class);
+}
+
 }
 
