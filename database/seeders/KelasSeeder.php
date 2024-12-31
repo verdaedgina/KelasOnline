@@ -30,7 +30,7 @@ class KelasSeeder extends Seeder
             'slug' => Str::slug('kelas12')
         ]);
 
-        // Materi untuk kelas 10
+        // Materi
         Mapel::create([
             'namaMapel' => 'bahasa indonesia',
             'slug' => Str::slug('bahasa indonesia'),
@@ -38,8 +38,14 @@ class KelasSeeder extends Seeder
         ]);
 
         Mapel::create([
-            'namaMapel' => 'agama',
-            'slug' => Str::slug('agama'),
+            'namaMapel' => 'bahasa inggris',
+            'slug' => Str::slug('bahasa inggris'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'bahasa jawa',
+            'slug' => Str::slug('bahasa jawa'),
             'id_kelas' => $kelas10->id
         ]);
 
@@ -49,42 +55,82 @@ class KelasSeeder extends Seeder
             'id_kelas' => $kelas10->id
         ]);
 
-        // Materi untuk kelas 11
         Mapel::create([
-            'namaMapel' => 'bahasa indonesia',
-            'slug' => Str::slug('bahasa indonesia'),
-            'id_kelas' => $kelas11->id
+            'namaMapel' => 'ppkn',
+            'slug' => Str::slug('ppkn'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'sejarah',
+            'slug' => Str::slug('sejarah'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'ppb',
+            'slug' => Str::slug('ppb'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'bdr',
+            'slug' => Str::slug('bdr'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'pbtgm',
+            'slug' => Str::slug('pbtgm'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'ipas',
+            'slug' => Str::slug('ipas'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'seni budaya',
+            'slug' => Str::slug('seni budaya'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'informatika',
+            'slug' => Str::slug('informatika'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'olahraga',
+            'slug' => Str::slug('olahraga'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'mpp',
+            'slug' => Str::slug('mpp'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'pkkkwu',
+            'slug' => Str::slug('pkkkwu'),
+            'id_kelas' => $kelas10->id
+        ]);
+
+        Mapel::create([
+            'namaMapel' => 'pweb',
+            'slug' => Str::slug('pweb'),
+            'id_kelas' => $kelas10->id
         ]);
 
         Mapel::create([
             'namaMapel' => 'agama',
             'slug' => Str::slug('agama'),
-            'id_kelas' => $kelas11->id
-        ]);
-
-        Mapel::create([
-            'namaMapel' => 'PBB',
-            'slug' => Str::slug('PBB'),
-            'id_kelas' => $kelas11->id
-        ]);
-
-        // Materi untuk kelas 12
-        Mapel::create([
-            'namaMapel' => 'bahasa indonesia',
-            'slug' => Str::slug('bahasa indonesia'),
-            'id_kelas' => $kelas12->id
-        ]);
-
-        Mapel::create([
-            'namaMapel' => 'agama',
-            'slug' => Str::slug('agama'),
-            'id_kelas' => $kelas12->id
-        ]);
-
-        Mapel::create([
-            'namaMapel' => 'PBTGM',
-            'slug' => Str::slug('PBTGM'),
-            'id_kelas' => $kelas12->id
+            'id_kelas' => $kelas10->id
         ]);
     }
 }

@@ -79,95 +79,17 @@
         <h6>{{ $materi->kelas }}</h6>
         <!-- Trigger Modal -->
 
-
-        <button type="button" class="btn btn-primary watch-video-btn" data-toggle="modal" data-target="#kelasModal"
-        data-video="{{ $materi->video }}" data-artikel="{{ $materi->artikel }}" data-id="{{ $materi->id }}">
-            Pilih
-        </button>
-
         <form action="{{ route('history.store') }}" method="POST">
-        @csrf
-        <!-- Input tersembunyi untuk user_id yang berasal dari user yang sedang login -->
-        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
-        <!-- Input tersembunyi untuk materi_id -->
-        <input type="hidden" name="materi_id" value="{{ $materi->id }}">
-
-        <!-- Tombol untuk menyimpan history -->
-        <button type="submit" class="btn btn-primary mt-3">Simpan ke History</button>
+    @csrf
+    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+    <input type="hidden" name="materi_id" value="{{ $materi->id }}">
+    
+    <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->video }}', '_blank')">Video</button>
+    <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->artikel }}', '_blank')">Artikel</button>
     </form>
-
     </div>
     @endforeach
     </div>
-
-    <!-- Modal -->
-    <div class="modal fade" id="kelasModal" tabindex="-1" aria-labelledby="kelasModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="kelasModalLabel">Pilih Tipe Materi</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span>&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Pilih jenis materi yang ingin Anda akses:</p>
-                    <div id="materiLinks">
-                        <a href="#" id="videoLink" target="_blank" class="btn btn-info" style="display: none;" data-activity-type="view_video">Video</a>
-                        <a href="#" id="artikelLink" target="_blank" class="btn btn-warning" style="display: none;" data-activity-type="view_artikel">Artikel</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-    @auth
-    <script>
-    $(document).ready(function() {
-        // Menangani klik pada tombol "Pilih"
-        $('.watch-video-btn').on('click', function() {
-            var materiId = $(this).data('id');
-            var video = $(this).data('video');
-            var artikel = $(this).data('artikel');
-
-            // AJAX untuk menyimpan materi ke history
-            $.ajax({
-                url: "{{ route('history.store') }}",
-                type: "POST",
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    user_id: "{{ auth()->user()->id }}", // ID user yang sedang login
-                    materi_id: materiId
-                },
-                success: function(response) {
-                    alert(response.message); // Menampilkan pesan sukses
-                },
-                error: function(xhr) {
-                    alert('Terjadi kesalahan saat menyimpan history');
-                }
-            });
-        });
-
-        // Ketika modal ditampilkan, atur link video dan artikel
-        $('#kelasModal').on('show.bs.modal', function (event) {
-            const button = $(event.relatedTarget);
-            const videoUrl = button.data('video');
-            const artikelUrl = button.data('artikel');
-            
-            // Setel href untuk video dan artikel
-            $('#videoLink').attr('href', videoUrl).show();
-            $('#artikelLink').attr('href', artikelUrl).show();
-        });
-    });
-    </script>
-    @endauth
-
-
 </body>
 </html>
 @endsection

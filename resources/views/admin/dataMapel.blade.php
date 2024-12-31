@@ -76,7 +76,7 @@
 </style>
 
 <div class="container">
-    <a href="{{ route('admin.create') }}" class="add-button">TAMBAH MAPEL</a>
+    <a href="{{ route('admin.create') }}" class="add-button">TAMBAH MATERI</a>
     <div class="table-container">
         <table>
             <thead>
@@ -86,8 +86,8 @@
                     <th>Nama mapel</th>
                     <th>Kelas</th>
                     <th>materi</th>
-                    <th>Link video</th>
                     <th>Link artikel</th>
+                    <th>Link video</th>
                     <th>Actions</th>
                 </tr>
             </thead>
