@@ -31,9 +31,11 @@
             padding: 10px;
         }
         .card img {
-            width: 100%;
-            border-radius: 10px 10px 0 0;
-        }
+    width: 100%;
+    height: 100px;  /* Menentukan tinggi yang sama untuk semua gambar */
+    object-fit: cover;  /* Memastikan gambar menyesuaikan dengan kotak tanpa merusak rasio */
+    border-radius: 10px 10px 0 0;
+}
         .card h4 {
             margin: 20px;
             font-size: 30px;
@@ -88,6 +90,7 @@
                             @csrf
                             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                             <input type="hidden" name="materi_id" value="{{ $materi->id }}">
+                            <input type="hidden" name="redirect_to" value="produk">
                             <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->video }}', '_blank')">Video</button>
                             <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->artikel }}', '_blank')">Artikel</button>
                         </form>

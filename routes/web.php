@@ -36,7 +36,7 @@ Route::middleware(['auth', 'user-access:siswa'])->group(function () {
     Route::get('/produk', [MateriController::class, 'produk'])->name('pelajar.produk');
     Route::post('/history', [HistoryController::class, 'store'])->name('history.store');
     Route::get('/histori', [HistoryController::class, 'index'])->name('pelajar.history');
-
+    Route::get('/pelajar/produk/{id}', [HistoryController::class, 'showMateri'])->name('pelajar.materi');
 });
 
 

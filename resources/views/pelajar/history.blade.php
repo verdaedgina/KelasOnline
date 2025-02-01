@@ -1,3 +1,4 @@
+<!-- Histori Page -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -69,17 +70,16 @@
         </thead>
         <tbody>
         @forelse($histories as $history)
-    <tr>
-        <td>{{ $loop->iteration }}</td>
-        <td>{{ $history->created_at ? $history->created_at->format('d M Y') : '-' }}</td>
-        <td>{{ $history->materi->materi }}</td>
-    </tr>
-@empty
-    <tr>
-        <td colspan="3" class="no-history-message">Tidak ada histori ditemukan</td>
-    </tr>
-@endforelse
-
+            <tr>
+                <td>{{ $loop->iteration }}</td>
+                <td>{{ $history->created_at ? $history->created_at->format('d M Y') : '-' }}</td>
+                <td><a href="{{ route('pelajar.produk', $history->materi->id) }}">{{ $history->materi->materi }}</a></td>
+            </tr>
+        @empty
+            <tr>
+                <td colspan="3" class="no-history-message">Tidak ada histori ditemukan</td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 </body>
