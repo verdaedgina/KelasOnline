@@ -1,4 +1,3 @@
-<!-- resources/views/profile.blade.php -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -51,6 +50,22 @@
             width: 100%;
             box-sizing: border-box;
         }
+        .button-history {
+            background-color: #f7c6c6;
+            padding: 10px;
+            border-radius: 20px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            color: #000;
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px;
+            text-align: left;
+        }
+        .button-history:hover {
+            background-color: #e5b2b2;
+        }
         .upgrade-button {
             background-color: #f7c6c6;
             padding: 10px 20px;
@@ -100,16 +115,17 @@
             </div>
         @endif
 
-        <!-- resources/views/pelajar/profil.blade.php -->
+        <!-- Profil pengguna -->
         <div class="info-box">
             <div>Nama: {{ $profil->username }}</div>
             <div>Email: {{ $profil->user->email }}</div> <!-- Akses email melalui relasi user -->
             <div>Tingkatan Level: {{ $profil->level }}</div>
             <div>Score: {{ $profil->score }}</div> <!-- Menampilkan score -->
-            <div>Total History: {{ $totalUserHistory }}</div> <!-- Menampilkan total history -->
+            <button class="button-history" onclick="window.location.href='/histori'">
+                Total History: {{ $totalUserHistory }}
+            </button>
+
         </div>
-
-
     </div>
     <div class="footer">
         <a href="/level" class="upgrade-button">

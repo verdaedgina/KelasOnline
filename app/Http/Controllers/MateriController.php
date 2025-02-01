@@ -22,8 +22,11 @@ class MateriController extends Controller
     public function produk()
     {
         $materi = Materi::all();
-        return view('pelajar.produk', compact('materi'));
+        $mapels = Mapel::all(); // Ambil semua mapel
+    
+        return view('pelajar.produk', compact('materi', 'mapels'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

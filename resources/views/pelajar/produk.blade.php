@@ -51,45 +51,95 @@
             cursor: pointer;
             border-radius: 5px;
         }
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        .pagination span {
-            height: 10px;
-            width: 10px;
-            background-color: #bbb;
-            border-radius: 50%;
-            display: inline-block;
-            margin: 0 5px;
-        }
-        .pagination span.active {
-            background-color: #000;
-        }
     </style>
 </head>
 <body>
-    <div class="content">
-    @foreach ($materi as $materi)
-    <div class="card">
-        <img src="{{ Storage::url('public/materis/') . $materi->image }}">
-        <h4>{{ $materi->mapel }}</h4>
-        <h6>{{ $materi->materi }}</h6>
-        <h6>{{ $materi->kelas }}</h6>
-        <!-- Trigger Modal -->
+    <div class="container">
+    <div class="container">
+    <div class="row">
+        <!-- Input Pencarian untuk Nama Mapel -->
+        <div class="col-md-6">
+            <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="Search Mapel...">
+            <datalist id="datalistOptions">
+                @foreach ($mapels as $mapel)
+                <option value="{{ $mapel->namaMapel }}" data-id="{{ $mapel->id }}">{{ $mapel->namaMapel }}</option>
+                @endforeach
+            </datalist>
+        </div>
 
-        <form action="{{ route('history.store') }}" method="POST">
-    @csrf
-    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-    <input type="hidden" name="materi_id" value="{{ $materi->id }}">
-    
-    <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->video }}', '_blank')">Video</button>
-    <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->artikel }}', '_blank')">Artikel</button>
-    </form>
+        <!-- Input Pencarian untuk Nama Materi -->
+        <div class="col-md-6 mt-3 mt-md-0">
+            <input class="form-control" id="materiSearch" placeholder="Search Materi...">
+        </div>
     </div>
-    @endforeach
+</div>
+
+
+        <div class="row mt-4">
+            @foreach ($materi as $materi)
+                <div class="col-md-3 materi-item" data-mapel="{{ $materi->mapel }}" data-materi="{{ $materi->materi }}" id="materi-{{ $materi->id }}">
+                    <div class="card">
+                        <img src="{{ Storage::url('public/materis/') . $materi->image }}">
+                        <h4>{{ $materi->mapel }}</h4>
+                        <h6>{{ $materi->materi }}</h6>
+                        <h6>{{ $materi->kelas }}</h6>
+
+                        <form action="{{ route('history.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="materi_id" value="{{ $materi->id }}">
+                            <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->video }}', '_blank')">Video</button>
+                            <button type="submit" class="btn btn-primary mt-3" onclick="window.open('{{ $materi->artikel }}', '_blank')">Artikel</button>
+                        </form>
+                    </div>
+                </div>
+            @endforeach
+        </div>
     </div>
+
+    <script>
+        // Fungsi Pencarian untuk Nama Mapel
+        document.getElementById('exampleDataList').addEventListener('input', function() {
+            var searchTerm = this.value.toLowerCase();
+            var materiItems = document.querySelectorAll('.materi-item');
+            var found = false;
+
+            materiItems.forEach(function(item) {
+                var mapelName = item.getAttribute('data-mapel').toLowerCase();
+
+                if (mapelName.includes(searchTerm)) {
+                    item.style.display = 'block'; 
+                    if (!found) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Fungsi Pencarian untuk Nama Materi
+        document.getElementById('materiSearch').addEventListener('input', function() {
+            var searchTerm = this.value.toLowerCase();
+            var materiItems = document.querySelectorAll('.materi-item');
+            var found = false;
+
+            materiItems.forEach(function(item) {
+                var materiName = item.getAttribute('data-materi').toLowerCase();
+
+                if (materiName.includes(searchTerm)) {
+                    item.style.display = 'block';
+                    if (!found) {
+                        item.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        found = true;
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
 @endsection

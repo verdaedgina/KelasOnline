@@ -8,6 +8,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MapelController;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'user-access:siswa'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/produk', [MateriController::class, 'produk'])->name('pelajar.produk');
     Route::post('/history', [HistoryController::class, 'store'])->name('history.store');
+    Route::get('/histori', [HistoryController::class, 'index'])->name('pelajar.history');
 
 });
 
@@ -42,6 +44,7 @@ Route::middleware(['auth', 'user-access:siswa'])->group(function () {
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::resource('admin', MateriController::class);
     Route::get('/admin', [MateriController::class, 'index'])->name('admin.dataMapel');
+    Route::resource('mapel', MapelController::class);
 }); 
 
 //Route::get('/akun', function () {

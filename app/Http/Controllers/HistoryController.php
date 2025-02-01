@@ -24,5 +24,10 @@ class HistoryController extends Controller
         return redirect()->route('pelajar.produk')->with('success', 'Mapel berhasil ditambahkan.');
     }
     
-
+    public function index()
+    {
+        $userId = Auth::id(); // Ambil ID user yang sedang login
+        $histories = History::where('user_id', $userId)->with('materi')->get(); 
+        return view('pelajar.history', compact('histories'));
+    }
 }
