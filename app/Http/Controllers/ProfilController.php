@@ -41,13 +41,13 @@ class ProfilController extends Controller
     // Metode untuk menentukan level berdasarkan skor
     private function calculateLevel($score)
     {
-        if ($score <= 50) {
+        if ($score <= 100) {
             return 'pemula';
-        } elseif ($score <= 200) {
+        } elseif ($score <= 300) {
             return 'menengah';
-        } elseif ($score <= 350) {
+        } elseif ($score <= 450) {
             return 'terpelajar';
-        } elseif ($score <= 500) {
+        } elseif ($score <= 600) {
             return 'expert';
         } else {
             return 'master';

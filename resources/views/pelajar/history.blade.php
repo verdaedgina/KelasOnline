@@ -73,7 +73,7 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $history->created_at ? $history->created_at->format('d M Y') : '-' }}</td>
-                <td><a href="{{ route('pelajar.produk', $history->materi->id) }}">{{ $history->materi->materi }}</a></td>
+                <td><a href="{{ route('pelajar.materi', $history->materi->id) }}">{{ $history->materi->materi }}</a></td>
             </tr>
         @empty
             <tr>
