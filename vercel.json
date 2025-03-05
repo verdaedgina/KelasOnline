@@ -5,16 +5,16 @@
         "api/index.php": { "runtime": "vercel-php@0.6.0" }
     },
     "routes": [
-        { "src": "/build/(.*)", "dest": "/public/build/" },
-        { "src": "/(.*)", "dest": "/api/index.php" }
+        { "src": "/build/(.*)", "dest": "/public/build/$1" },
+        { "src": "/(.*)", "dest": "/public/index.php" }
     ],
     "public": true,
-    "buildCommand": "vite build",
+    "buildCommand": "npm run build && php artisan view:cache",
     "outputDirectory": "public",
     "env": {
-        "APP_ENV": "local",
+        "APP_ENV": "production",
         "APP_DEBUG": "true",
-        "APP_URL": "http://localhost",
+        "APP_URL": "https://kelas-online-2pvukje9w-verda-edginas-projects.vercel.app",
         "APP_KEY": "base64:anuvFppLMq/z56XOne8opTtBfpR/9UTOei+asTc5uUY=",
         "APP_CONFIG_CACHE": "/tmp/config.php",
         "APP_EVENTS_CACHE": "/tmp/events.php",

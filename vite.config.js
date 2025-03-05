@@ -11,4 +11,9 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        outDir: 'public/build', // Sesuaikan dengan lokasi build Laravel
+        manifest: true,
+        emptyOutDir: true
+    },
 });
