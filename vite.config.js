@@ -12,8 +12,12 @@ export default defineConfig({
         }),
     ],
     build: {
-        outDir: 'public/build', // Sesuaikan dengan lokasi build Laravel
-        manifest: true,
+        outDir: 'public/build',
         emptyOutDir: true
+    },
+    server: {
+        hmr: {
+            host: 'localhost',
+        },
     },
 });

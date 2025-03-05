@@ -1,8 +1,9 @@
-// Pastikan @use ada di awal
+// Semua @use harus di awal
 @use 'variables' as *;
+@use 'bootstrap/scss/bootstrap';
 
-// Fonts
+// Fonts (harus di bawah @use)
 @import url('https://fonts.bunny.net/css?family=Nunito');
 
-// Bootstrap
-@use 'bootstrap/scss/bootstrap';
+// Tambahkan kode SCSS lainnya setelah ini
+
